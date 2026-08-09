@@ -1,12 +1,20 @@
 import { ThemeProvider } from "./components/ThemeProvider";
-import DashboardLayout from "./components/reusable/DashboardLayout";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Ecom from "./pages/Ecom";
+import Crm from "./pages/Crm";
+import Sidebar from "./components/reusable/Sidebar";
+
 const App = () => {
   return (
-    <ThemeProvider>
-      <div>
-        <DashboardLayout />
-      </div>
-    </ThemeProvider>
+     <BrowserRouter>
+      <ThemeProvider>
+        <Routes>
+           <Route path="/" element={<Sidebar />} />
+          <Route path="/ecommerce" element={<Ecom />} />
+           <Route path="/crm" element={<Crm />} />
+             </Routes>
+           </ThemeProvider>
+          </BrowserRouter>
   );
 };
 

@@ -1,10 +1,12 @@
-import { LayoutDashboard, BookUser } from "lucide-react";
-// import { useNavigate, useLocation } from "react-router-dom";
-import vite from "../../assets/vite.svg";
+import { useEffect, useState } from "react";
+import { LayoutDashboard, BookUser, ChevronDown, ChevronUp } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import logo from "../../assets/logo.svg";
 
 const Sidebar = () => {
-  //   const navigate = useNavigate();
-  //   const location = useLocation();
+  const [openSection, setOpenSection] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const dashboardItems = [
     { id: "ecom", label: "Ecommerce", path: "/ecommerce" },
@@ -23,41 +25,79 @@ const Sidebar = () => {
 
   const calendar = [{ id: "calendar", label: "Calander", path: "/Calendar" }];
 
-  //   const itemClass = (path: string) =>
-  //     location.pathname === path
-  //       ? "w-56 h-11 px-7.5 cursor-pointer border-l-2 border-[#166684] flex items-center text-[#166684] font-medium"
-  //       : "w-56 h-11 px-7.5 cursor-pointer border-l-2 border-gray-200 dark:text-white flex items-center ";
-  const itemClass = (path: string) =>
-    "w-56 h-11 px-7.5 cursor-pointer border-l-2 border-[#166684] flex items-center text-[#166684] font-medium";
-  return (
-    <div className="w-72 h-screen pt-2.5 pb-7 px-2.5 border-r bg-[#F6FAFE] dark:bg-[#1C2130]  dark:text-white">
-      {/* Logo */}
-      <div className="h-16 w-72 flex justify-between p-5 ">
-        <div className="flex items-center">
-          <img src={vite} alt="logo" className="h-8 w-8" />
-          <h1 className="font-bold text-sm p-2">MatAble</h1>
-        </div>
+  // Central registry of sections — add new ones here only
+  const sections = [
+    { key: "dashboard", items: dashboardItems },
+    { key: "contact", items: Ecom },
+    { key: "invoices", items: Task },
+  ];
 
-        <div className="bg-[#EDF1F5] p-3 text-[#166684] font-semibold rounded-md w-7 h-7 flex justify-center items-center dark:text-white  dark:bg-[#1C2130] dark:border dark:border-white">
-          =
-        </div>
+  // Keep whichever section contains the active route open automatically
+  useEffect(() => {
+    const active = sections.find((s) =>
+      s.items.some((item) => item.path === location.pathname)
+    );
+    if (active) setOpenSection(active.key);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  const sectionHeaderClass = (isOpen: boolean) =>
+    `flex items-center justify-between rounded-2xl px-5 py-4 cursor-pointer font-medium transition-colors
+     ${isOpen
+        ? "bg-[#ECF3FF] text-[#465FFF]"
+        : "bg-white text-[#344054] dark:text-white"
+     }`;
+
+  const subItemClass = (isActive: boolean) =>
+    `w-56 h-11 px-7.5 flex items-center justify-start cursor-pointer rounded-lg font-medium transition-colors
+     ${isActive
+        ? "bg-[#ECF3FF] text-[#465FFF] text-end"
+        : "text-[#667085] hover:bg-gray-50 dark:text-white justify-end "
+     }`;
+
+  const SectionChevron = ({ isOpen }: { isOpen: boolean }) =>
+    isOpen ? <ChevronUp /> : <ChevronDown />;
+
+  const handleToggle = (
+    e: React.SyntheticEvent<HTMLDetailsElement>,
+    key: string
+  ) => {
+    const isOpen = (e.target as HTMLDetailsElement).open;
+    setOpenSection(isOpen ? key : "");
+  };
+
+  return (
+    <div className="w-[19%] h-screen pt-5 pb-7 px-2.5 border-r bg-white lg:block md:block hidden">
+      {/* Logo */}
+      <div className="p-3 flex justify-start items-baseline sm:hidden md:hidden lg:block">
+        <img src={logo} alt="logo" className="h-9 w-80 mr-36 " />
+      </div>
+
+      <div className="p-3 text-[#98A2B3] font-extralight flex dark:text-white dark:bg-[#1C2130] dark:border dark:border-white">
+        Menu
       </div>
 
       {/* Dashboard */}
-      <details className="pl-3 text-[#166684]" open>
-        <summary className="flex rounded-2xl appearance-none list-none [&::-webkit-details-marker]:hidden [&::marker]:hidden px-5 py-4 cursor-pointer bg-[#C0E8FF]">
-          <div className="flex items-center gap-2 font-medium">
-            <LayoutDashboard />
-            <span>Dashboard</span>
+      <details
+        open={openSection === "dashboard"}
+        onToggle={(e) => handleToggle(e, "dashboard")}
+      >
+        <summary className={sectionHeaderClass(openSection === "dashboard")}>
+          <div className="items-center gap-2 font-medium flex w-full justify-between">
+            <div className="flex gap-3">
+              <LayoutDashboard />
+              <span>Dashboard</span>
+            </div>
+            <SectionChevron isOpen={openSection === "dashboard"} />
           </div>
         </summary>
 
-        <div className="p-4 w-[256px]">
+        <div className="p-4">
           {dashboardItems.map((item) => (
             <div
               key={item.id}
-              className={itemClass(item.path)}
-              //   onClick={() => navigate(item.path)}
+              className={subItemClass(location.pathname === item.path)}
+              onClick={() => navigate(item.path)}
             >
               {item.label}
             </div>
@@ -66,20 +106,27 @@ const Sidebar = () => {
       </details>
 
       {/* Contact */}
-      <details className="pl-3 pt-3 text-[#166684] " open>
-        <summary className="flex rounded-2xl list-none [&::-webkit-details-marker]:hidden [&::marker]:hidden px-5 py-4 cursor-pointer bg-[#C0E8FF]">
-          <div className="flex items-center gap-2 font-medium ">
-            <BookUser />
-            <span>Contact</span>
+      <details
+      
+        open={openSection === "contact"}
+        onToggle={(e) => handleToggle(e, "contact")}
+      >
+        <summary className={sectionHeaderClass(openSection === "contact")}>
+          <div className="items-center gap-2 font-medium flex w-full justify-between">
+            <div className="flex gap-3">
+              <BookUser />
+              <span>Contact</span>
+            </div>
+            <SectionChevron isOpen={openSection === "contact"} />
           </div>
         </summary>
 
-        <div className="p-4 w-[256px] ">
+        <div className="p-4 w-[256px]">
           {Ecom.map((item) => (
             <div
               key={item.id}
-              className={itemClass(item.path)}
-              //   onClick={() => navigate(item.path)}
+              className={subItemClass(location.pathname === item.path)}
+              onClick={() => navigate(item.path)}
             >
               {item.label}
             </div>
@@ -88,11 +135,18 @@ const Sidebar = () => {
       </details>
 
       {/* Invoices */}
-      <details className="pl-3 text-[#166684]" open>
-        <summary className="flex rounded-2xl appearance-none list-none [&::-webkit-details-marker]:hidden [&::marker]:hidden px-5 py-4 cursor-pointer bg-[#C0E8FF]">
-          <div className="flex items-center gap-2 font-medium">
-            <LayoutDashboard />
-            <span>Invoices</span>
+      <details
+       
+        open={openSection === "invoices"}
+        onToggle={(e) => handleToggle(e, "invoices")}
+      >
+        <summary className={sectionHeaderClass(openSection === "invoices")}>
+          <div className="items-center gap-2 font-medium flex w-full justify-between">
+            <div className="flex gap-3">
+              <LayoutDashboard />
+              <span>Invoices</span>
+            </div>
+            <SectionChevron isOpen={openSection === "invoices"} />
           </div>
         </summary>
 
@@ -100,8 +154,8 @@ const Sidebar = () => {
           {Task.map((item) => (
             <div
               key={item.id}
-              className={itemClass(item.path)}
-              //   onClick={() => navigate(item.path)}
+              className={subItemClass(location.pathname === item.path)}
+              onClick={() => navigate(item.path)}
             >
               {item.label}
             </div>
