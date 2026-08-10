@@ -6,15 +6,15 @@ import Sidebar from "./components/reusable/Sidebar";
 
 const App = () => {
   return (
-     <BrowserRouter>
+    <BrowserRouter>
       <ThemeProvider>
         <Routes>
-           <Route path="/" element={<Sidebar />} />
+          <Route path="/" element={<Sidebar />} />
           <Route path="/ecommerce" element={<Ecom />} />
-           <Route path="/crm" element={<Crm />} />
-             </Routes>
-           </ThemeProvider>
-          </BrowserRouter>
+          <Route path="/crm" element={<Crm />} />
+        </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 };
 

@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
-import { LayoutDashboard, BookUser, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  LayoutDashboard,
+  BookUser,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 
-const Sidebar = () => {
+interface SidebarProps {
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const [openSection, setOpenSection] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,76 +32,150 @@ const Sidebar = () => {
     { id: "kanban", label: "Kanban", path: "/kanban" },
   ];
 
-  const calendar = [{ id: "calendar", label: "Calander", path: "/Calendar" }];
-
-  // Central registry of sections — add new ones here only
   const sections = [
     { key: "dashboard", items: dashboardItems },
     { key: "contact", items: Ecom },
     { key: "invoices", items: Task },
   ];
 
-  // Keep whichever section contains the active route open automatically
+  // Automatically open the section containing the current route
   useEffect(() => {
-    const active = sections.find((s) =>
-      s.items.some((item) => item.path === location.pathname)
+    const active = sections.find((section) =>
+      section.items.some((item) => item.path === location.pathname),
     );
-    if (active) setOpenSection(active.key);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    if (active) {
+      setOpenSection(active.key);
+    }
   }, [location.pathname]);
 
-  const sectionHeaderClass = (isOpen: boolean) =>
-    `flex items-center justify-between rounded-2xl px-5 py-4 cursor-pointer font-medium transition-colors
-     ${isOpen
-        ? "bg-[#ECF3FF] text-[#465FFF]"
-        : "bg-white text-[#344054] dark:text-white"
-     }`;
+  // Main section heading
+  const sectionHeaderClass = (isOpen: boolean) => `
+    group
+    flex
+    h-11
+    w-64
+    ml-2
+    cursor-pointer
+    list-none
+    items-center
+    justify-between
+    rounded-lg
+    px-6
+    text-sm
+    font-medium
+    transition-colors
 
-  const subItemClass = (isActive: boolean) =>
-    `w-56 h-11 px-7.5 flex items-center justify-start cursor-pointer rounded-lg font-medium transition-colors
-     ${isActive
-        ? "bg-[#ECF3FF] text-[#465FFF] text-end"
-        : "text-[#667085] hover:bg-gray-50 dark:text-white justify-end "
-     }`;
+    ${
+      isOpen
+        ? "bg-[#ECF3FF] text-[#465FFF] dark:bg-[#1D2939] dark:text-[#7592FF]"
+        : "text-[#344054] hover:bg-[#F2F4F7] dark:text-[#D0D5DD] dark:hover:bg-[#1D2939]"
+    }
+
+    [&::-webkit-details-marker]:hidden
+  `;
+
+  // Submenu item
+  const subItemClass = (isActive: boolean) => `
+    flex
+    h-10
+     w-[220px]
+    ml-2
+    cursor-pointer
+    items-center
+    rounded-md
+    px-4
+    text-sm
+    font-medium
+    transition-colors
+
+    ${
+      isActive
+        ? "bg-[#ECF3FF] text-[#465FFF] dark:bg-[#1D2939] dark:text-[#7592FF]"
+        : "text-[#667085] hover:bg-[#F9FAFB] dark:text-[#98A2B3] dark:hover:bg-[#1D2939]"
+    }
+  `;
 
   const SectionChevron = ({ isOpen }: { isOpen: boolean }) =>
-    isOpen ? <ChevronUp /> : <ChevronDown />;
+    isOpen ? (
+      <ChevronUp size={17} strokeWidth={1.8} />
+    ) : (
+      <ChevronDown size={17} strokeWidth={1.8} />
+    );
 
   const handleToggle = (
     e: React.SyntheticEvent<HTMLDetailsElement>,
-    key: string
+    key: string,
   ) => {
-    const isOpen = (e.target as HTMLDetailsElement).open;
-    setOpenSection(isOpen ? key : "");
+    const details = e.currentTarget;
+
+    if (details.open) {
+      setOpenSection(key);
+    } else if (openSection === key) {
+      setOpenSection("");
+    }
   };
 
   return (
-    <div className="w-[19%] h-screen pt-5 pb-7 px-2.5 border-r bg-white lg:block md:block hidden">
-      {/* Logo */}
-      <div className="p-3 flex justify-start items-baseline sm:hidden md:hidden lg:block">
-        <img src={logo} alt="logo" className="h-9 w-80 mr-36 " />
+    <aside
+      className={`
+    fixed
+    left-0
+    top-12
+    md:top-7
+    z-50
+    h-screen
+    w-72
+    border-r
+    border-border
+    bg-background
+    transition-transform
+    duration-300
+
+    lg:static
+    lg:translate-x-0
+
+    ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+  `}
+    >
+      {/* 
+          LOGO
+       */}
+
+      <div className=" h-12 shrink-0 items-center py-7 px-4 lg:block md:hidden hidden">
+        <img src={logo} alt="TailAdmin" className="h-8 w-auto object-contain" />
       </div>
 
-      <div className="p-3 text-[#98A2B3] font-extralight flex dark:text-white dark:bg-[#1C2130] dark:border dark:border-white">
-        Menu
+      {/* 
+          MENU TITLE
+       */}
+
+      <div className="px-5 pb-3 pt-7">
+        <span className="text-[11px] font-medium uppercase  text-[#98A2B3] dark:text-foreground">
+          Menu
+        </span>
       </div>
 
-      {/* Dashboard */}
+      {/* 
+          DASHBOARD
+       */}
+
       <details
         open={openSection === "dashboard"}
         onToggle={(e) => handleToggle(e, "dashboard")}
+        className="group"
       >
         <summary className={sectionHeaderClass(openSection === "dashboard")}>
-          <div className="items-center gap-2 font-medium flex w-full justify-between">
-            <div className="flex gap-3">
-              <LayoutDashboard />
-              <span>Dashboard</span>
-            </div>
-            <SectionChevron isOpen={openSection === "dashboard"} />
+          <div className="flex items-center gap-3">
+            <LayoutDashboard size={20} strokeWidth={1.8} />
+
+            <span>Dashboard</span>
           </div>
+
+          <SectionChevron isOpen={openSection === "dashboard"} />
         </summary>
 
-        <div className="p-4">
+        <div className="mt-1 space-y-1 pl-9 pr-0">
           {dashboardItems.map((item) => (
             <div
               key={item.id}
@@ -105,23 +188,26 @@ const Sidebar = () => {
         </div>
       </details>
 
-      {/* Contact */}
+      {/* 
+          Contact
+       */}
+
       <details
-      
         open={openSection === "contact"}
         onToggle={(e) => handleToggle(e, "contact")}
+        className="group mt-1"
       >
         <summary className={sectionHeaderClass(openSection === "contact")}>
-          <div className="items-center gap-2 font-medium flex w-full justify-between">
-            <div className="flex gap-3">
-              <BookUser />
-              <span>Contact</span>
-            </div>
-            <SectionChevron isOpen={openSection === "contact"} />
+          <div className="flex items-center gap-3">
+            <BookUser size={20} strokeWidth={1.8} />
+
+            <span>Contact</span>
           </div>
+
+          <SectionChevron isOpen={openSection === "contact"} />
         </summary>
 
-        <div className="p-4 w-[256px]">
+        <div className="mt-1 space-y-1 pl-9">
           {Ecom.map((item) => (
             <div
               key={item.id}
@@ -134,23 +220,26 @@ const Sidebar = () => {
         </div>
       </details>
 
-      {/* Invoices */}
+      {/* 
+          Invoices
+       */}
+
       <details
-       
         open={openSection === "invoices"}
         onToggle={(e) => handleToggle(e, "invoices")}
+        className="group mt-1"
       >
         <summary className={sectionHeaderClass(openSection === "invoices")}>
-          <div className="items-center gap-2 font-medium flex w-full justify-between">
-            <div className="flex gap-3">
-              <LayoutDashboard />
-              <span>Invoices</span>
-            </div>
-            <SectionChevron isOpen={openSection === "invoices"} />
+          <div className="flex items-center gap-3">
+            <LayoutDashboard size={20} strokeWidth={1.8} />
+
+            <span>Invoices</span>
           </div>
+
+          <SectionChevron isOpen={openSection === "invoices"} />
         </summary>
 
-        <div className="p-4 w-[256px]">
+        <div className="mt-1 space-y-1 pl-9">
           {Task.map((item) => (
             <div
               key={item.id}
@@ -162,7 +251,7 @@ const Sidebar = () => {
           ))}
         </div>
       </details>
-    </div>
+    </aside>
   );
 };
 

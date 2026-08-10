@@ -1,13 +1,18 @@
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import { useState } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div>
       <div className="flex">
-        <Sidebar />
-        <div className="flex-1 flex flex-col min-w-0">
-          <Navbar />
+        <div className="lg:flex-0">
+          <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        </div>
+        <div className="flex-5 flex flex-col ">
+          <Navbar setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />
           <main>{children}</main>
         </div>
       </div>
