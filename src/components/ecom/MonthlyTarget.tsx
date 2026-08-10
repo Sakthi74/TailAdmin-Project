@@ -3,7 +3,7 @@ import { monthlyTarget } from "../../data/monthlyTarget";
 
 const MonthlyTarget = () => {
   return (
-    <div className="bg-[#F3F4F7] lg:pb-10 md:pb-10 pb-4 rounded-2xl min-h-[380px] flex flex-col">
+    <div className="bg-[#F3F4F7] w-full min-w-0 lg:pb-10 md:pb-10 pb-4 rounded-2xl min-h-[380px] flex flex-col">
       <Donut
         donutheader="Monthly Target"
         donutdescription="Target you've set for each month"

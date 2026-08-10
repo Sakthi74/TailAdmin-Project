@@ -25,7 +25,7 @@ const Donut = ({
   donutpercentage,
 }: Props) => {
   return (
-    <Card className="w-full pt-4">
+    <Card className="w-full min-w-0 pt-4">
       <header className="flex items-start justify-between px-5">
         <div>
           <h2 className="text-lg font-semibold text-foreground">

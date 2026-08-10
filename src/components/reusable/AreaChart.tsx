@@ -18,8 +18,13 @@ const AreaLineChart = () => {
   const [activeTab, setActiveTab] = useState("Quarterly");
 
   return (
-    <div className="bg-[#ffff] rounded-2xl p-12  lg:h-full h-full md:h-[335px]  w-full col-span-12 dark:bg-[#1C2130] dark:border dark:border-white">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
+    <div
+      className="bg-white rounded-2xl p-5 md:p-8 lg:p-12 w-full min-w-0 col-span-12
+                 flex flex-col
+                 h-[420px] md:h-[380px]
+                 dark:bg-[#1C2130] dark:border dark:border-white"
+    >
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4 shrink-0">
         <div>
           <h2 className="text-xl font-semibold">Statistics</h2>
           <p className="text-[#8290AB] text-sm">
@@ -54,61 +59,65 @@ const AreaLineChart = () => {
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height="90%">
-        <AreaChart
-          data={earningsData}
-          margin={{
-            top: 20,
-            right: 20,
-            left: 0,
-            bottom: 10,
-          }}
-        >
-          <defs>
-            <linearGradient id="revenue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#0d4db5" stopOpacity={0.4} />
-              <stop offset="95%" stopColor="#DBE0FF" stopOpacity={0} />
-            </linearGradient>
-          </defs>
+      {/* flex-1 + min-h-0 lets this fill remaining space without ever
+          collapsing to 0 or blowing past the card's fixed height above */}
+      <div className="flex-1 min-h-0 min-w-0">
+        <ResponsiveContainer width="100%" height="100%" minHeight={180}>
+          <AreaChart
+            data={earningsData}
+            margin={{
+              top: 20,
+              right: 20,
+              left: 0,
+              bottom: 10,
+            }}
+          >
+            <defs>
+              <linearGradient id="revenue" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#0d4db5" stopOpacity={0.4} />
+                <stop offset="95%" stopColor="#DBE0FF" stopOpacity={0} />
+              </linearGradient>
+            </defs>
 
-          <CartesianGrid vertical={false} stroke="#E2E8F0" />
+            <CartesianGrid vertical={false} stroke="#E2E8F0" />
 
-          <XAxis
-            dataKey="month"
-            axisLine={false}
-            tickLine={false}
-            tick={{ fill: "#64748B", fontSize: 12 }}
-          />
+            <XAxis
+              dataKey="month"
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: "#64748B", fontSize: 12 }}
+            />
 
-          <YAxis
-            axisLine={false}
-            tickLine={false}
-            tick={{ fill: "#64748B", fontSize: 12 }}
-          />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: "#64748B", fontSize: 12 }}
+            />
 
-          <Tooltip />
+            <Tooltip />
 
-          <Area
-            type="monotone"
-            dataKey="revenue"
-            stroke="#6A7DFF"
-            strokeWidth={3}
-            fill="url(#revenue)"
-            dot={false}
-            activeDot={{ r: 6 }}
-          />
+            <Area
+              type="monotone"
+              dataKey="revenue"
+              stroke="#6A7DFF"
+              strokeWidth={3}
+              fill="url(#revenue)"
+              dot={false}
+              activeDot={{ r: 6 }}
+            />
 
-          <Area
-            type="monotone"
-            dataKey="target"
-            stroke="#A5BFFF"
-            strokeWidth={2}
-            fill="none"
-            dot={false}
-            activeDot={{ r: 5 }}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+            <Area
+              type="monotone"
+              dataKey="target"
+              stroke="#A5BFFF"
+              strokeWidth={2}
+              fill="none"
+              dot={false}
+              activeDot={{ r: 5 }}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

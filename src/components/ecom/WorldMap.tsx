@@ -6,9 +6,9 @@ import { worldMapData } from "../../data/worldMapData";
 
 const WorldMap = () => {
   return (
-    <Card className="lg:w-[600px] w-full md:w-fit p-5 ">
+    <Card className="w-full min-w-0 lg:w-[600px] p-5">
       <header className="flex items-start justify-between px-5 py-2">
-        <div className="">
+        <div>
           <h2 className="text-lg font-semibold text-foreground">
             customers demography
           </h2>
@@ -22,12 +22,15 @@ const WorldMap = () => {
           <EllipsisVertical size={18} />
         </div>
       </header>
+
+      {/* Fixed: w-[550px] caused overflow on small screens. w-full + max-w-full
+          lets the map's internal SVG scale down with its container. */}
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
           scale: 140,
         }}
-        className="h-56 w-[550px] bg-[#F9FBFA]  border rounded-2xl"
+        className="h-56 w-full max-w-full bg-[#F9FBFA] border rounded-2xl"
       >
         <Geographies geography={worldMap}>
           {({ geographies }) =>
