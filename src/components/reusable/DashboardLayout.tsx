@@ -7,13 +7,15 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex h-screen overflow-hidden">
         <div className="lg:flex-0">
           <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         </div>
-        <div className="flex-5 flex flex-col ">
+        <div className="flex-5 flex flex-col  ">
           <Navbar setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />
-          <main>{children}</main>
+          <div className="overflow-y-auto">
+            <main>{children}</main>
+          </div>
         </div>
       </div>
     </div>

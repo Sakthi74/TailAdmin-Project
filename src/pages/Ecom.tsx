@@ -4,17 +4,13 @@ import MonthlyTarget from "../components/ecom/MonthlyTarget";
 import SalesBar from "../components/ecom/SalesBar";
 import AreaLineChart from "../components/reusable/AreaChart";
 import WorldMap from "../components/ecom/WorldMap";
+import RecentOrders from "@/components/ecom/RecentOrders";
+import { earningsData } from "../../src/data/Revenue";
 
 const Ecom = () => {
   return (
     <DashboardLayout>
       <div className="w-full min-w-0 max-w-full bg-[#F9FBFA] dark:bg-[#101929] p-5">
-        {/*
-          Fixed: removed `grid-rows-3` — forcing 3 equal-height rows on a
-          container with no explicit height was squeezing the taller
-          AreaLineChart card, causing it to overflow into the next row.
-          Rows now auto-size to their content instead.
-        */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
           {/* Left column: customer/order cards + sales bar */}
           <div className="lg:col-span-7 min-w-0 flex flex-col gap-5">
@@ -25,21 +21,24 @@ const Ecom = () => {
             <SalesBar />
           </div>
 
-          {/* Right column: monthly target
-              (was: lg:cols-span-5 — invalid class, silently dropped) */}
+          {/* Right column: monthly target */}
+
           <div className="lg:col-span-5 min-w-0">
             <MonthlyTarget />
           </div>
 
           {/* Full-width statistics chart */}
           <div className="lg:col-span-12 min-w-0">
-            <AreaLineChart />
+            <AreaLineChart data={earningsData} />
           </div>
 
-          {/* Full-width world map
-              (was: no col-span at all — defaulted to 1 of 12 columns) */}
-          <div className="lg:col-span-12 min-w-0">
+          {/* Full-width world map */}
+
+          <div className="lg:col-span-5 min-w-0">
             <WorldMap />
+          </div>
+          <div className="lg:col-span-7 min-w-0">
+            <RecentOrders />
           </div>
         </div>
       </div>

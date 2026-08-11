@@ -10,7 +10,7 @@ interface props {
 
 const EcomCard = ({ title, num, percentage }: props) => {
   return (
-    <div className="p-3 w-screen">
+    <div className="p-3 w-full">
       {/* cards */}
       <Card className="border p-5 w-full">
         <div className="bg-[#F3F4F7] p-3 rounded-xl dark:bg-[#192030] dark:border dark:border-gray-400 w-fit">

@@ -9,36 +9,68 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Calendar } from "lucide-react";
-
-import { earningsData } from "../../data/Revenue";
+import { Badge } from "../../ui/badge";
 
 const TABS = ["Monthly", "Quarterly", "Annually"];
 
-const AreaLineChart = () => {
+interface ChartData {
+  month: string;
+  revenue: number;
+  target: number;
+}
+
+interface AreaLineChartProps {
+  data: ChartData[];
+}
+
+const AreaLineChart = ({ data }: AreaLineChartProps) => {
   const [activeTab, setActiveTab] = useState("Quarterly");
 
   return (
     <div
-      className="bg-white rounded-2xl p-5 md:p-8 lg:p-12 w-full min-w-0 col-span-12
-                 flex flex-col
-                 h-[420px] md:h-[380px]
-                 dark:bg-[#1C2130] dark:border dark:border-white"
+      className="bg-white rounded-2xl p-5 md:p-8 lg:p-12 w-full min-w-0 lg:h-full col-span-12
+                 flex flex-col h-[420px] md:h-[380px]
+                 dark:bg-[#171F2E] "
     >
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4 shrink-0">
         <div>
           <h2 className="text-xl font-semibold">Statistics</h2>
+
           <p className="text-[#8290AB] text-sm">
-            Target you&apos;ve set for each month
+            Target you have've set for each month
           </p>
+          <div className=" flex">
+            <div className=" pt-5  lg:mr-12 justify-center gap-3 items-center ">
+              <div className="flex justify-center gap-3 items-center ">
+                <h1 className="text-xl md:text-xl lg:text-xl font-bold">
+                  $212,142.12
+                </h1>
+                <Badge className="bg-[#EDFDF3] text-[#1D9F61] dark:bg-[#173539] dark:text-green">
+                  +23.2%
+                </Badge>
+              </div>
+              <p className="text-sm text-[#A8B5C0]">Avg. Yearly Profit</p>
+            </div>
+            <div className=" pt-5  lg:mr-12 justify-center gap-3 items-center ">
+              <div className="flex justify-center gap-3 items-center ">
+                <h1 className="text-xl md:text-xl lg:text-xl font-bold">
+                  $30,321.23
+                </h1>
+                <Badge className="bg-[#FFF2F2] text-[#E36961] dark:bg-[#382531] dark:text-red-500">
+                  -12.3%
+                </Badge>
+              </div>
+              <p className="text-sm text-[#A8B5C0]">Avg. Yearly Profit</p>
+            </div>
+          </div>
         </div>
 
-        {/* right side: also stacks on sm, row from md */}
-        <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
-          {/* segmented toggle */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:items-center ">
           <div className="flex items-center bg-[#EEF2F9] dark:bg-[#2A3040] rounded-lg p-1 w-fit">
             {TABS.map((tab) => (
               <button
                 key={tab}
+                type="button"
                 onClick={() => setActiveTab(tab)}
                 className={`px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap ${
                   activeTab === tab
@@ -51,20 +83,20 @@ const AreaLineChart = () => {
             ))}
           </div>
 
-          {/* date range pill */}
-          <button className="flex items-center gap-2 border border-slate-200 dark:border-white/20 rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-white whitespace-nowrap w-fit">
+          <button
+            type="button"
+            className="flex items-center gap-2 border border-slate-200 dark:border-white/20 rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-white whitespace-nowrap w-fit"
+          >
             <Calendar className="w-4 h-4 text-indigo-500" />
             Aug 04 to Aug 10
           </button>
         </div>
       </div>
 
-      {/* flex-1 + min-h-0 lets this fill remaining space without ever
-          collapsing to 0 or blowing past the card's fixed height above */}
-      <div className="flex-1 min-h-0 min-w-0">
+      <div className="flex-1 min-h-0  min-w-0">
         <ResponsiveContainer width="100%" height="100%" minHeight={180}>
           <AreaChart
-            data={earningsData}
+            data={data}
             margin={{
               top: 20,
               right: 20,
@@ -79,7 +111,7 @@ const AreaLineChart = () => {
               </linearGradient>
             </defs>
 
-            <CartesianGrid vertical={false} stroke="#E2E8F0" />
+            <CartesianGrid vertical={false} stroke="#F9F8FA" />
 
             <XAxis
               dataKey="month"
@@ -97,7 +129,7 @@ const AreaLineChart = () => {
             <Tooltip />
 
             <Area
-              type="monotone"
+              type="linear"
               dataKey="revenue"
               stroke="#6A7DFF"
               strokeWidth={3}
@@ -107,7 +139,7 @@ const AreaLineChart = () => {
             />
 
             <Area
-              type="monotone"
+              type="linear"
               dataKey="target"
               stroke="#A5BFFF"
               strokeWidth={2}

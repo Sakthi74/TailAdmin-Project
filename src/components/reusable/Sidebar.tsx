@@ -12,7 +12,8 @@ interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+
+const Sidebar = ({ sidebarOpen }: SidebarProps) => {
   const [openSection, setOpenSection] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,7 +24,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   ];
 
   const Ecom = [
-    { id: "product", label: "Product", path: "/product" },
+    { id: "products", label: "Products", path: "/products" },
     { id: "Invoice", label: "Invocie", path: "/invoice" },
   ];
 
@@ -38,148 +39,77 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     { key: "invoices", items: Task },
   ];
 
-  // Automatically open the section containing the current route
+  // auto-open the section containing the current route
   useEffect(() => {
     const active = sections.find((section) =>
       section.items.some((item) => item.path === location.pathname),
     );
-
-    if (active) {
-      setOpenSection(active.key);
-    }
+    if (active) setOpenSection(active.key);
   }, [location.pathname]);
 
-  // Main section heading
-  const sectionHeaderClass = (isOpen: boolean) => `
-    group
-    flex
-    h-11
-    w-64
-    ml-2
-    cursor-pointer
-    list-none
-    items-center
-    justify-between
-    rounded-lg
-    px-6
-    text-sm
-    font-medium
-    transition-colors
-
-    ${
-      isOpen
+  // shared className builders — declared once, reused by every section/item
+  const sectionHeaderClass = (key: string) =>
+    `group flex h-11 w-64 ml-2 cursor-pointer list-none items-center justify-between rounded-lg px-6 text-sm font-medium transition-colors [&::-webkit-details-marker]:hidden ${
+      openSection === key
         ? "bg-[#ECF3FF] text-[#465FFF] dark:bg-[#1D2939] dark:text-[#7592FF]"
         : "text-[#344054] hover:bg-[#F2F4F7] dark:text-[#D0D5DD] dark:hover:bg-[#1D2939]"
-    }
+    }`;
 
-    [&::-webkit-details-marker]:hidden
-  `;
-
-  // Submenu item
-  const subItemClass = (isActive: boolean) => `
-    flex
-    h-10
-     w-[220px]
-    ml-2
-    cursor-pointer
-    items-center
-    rounded-md
-    px-4
-    text-sm
-    font-medium
-    transition-colors
-
-    ${
-      isActive
+  const subItemClass = (path: string) =>
+    `flex h-10 w-[220px] ml-2 cursor-pointer items-center rounded-md px-4 text-sm font-medium transition-colors ${
+      location.pathname === path
         ? "bg-[#ECF3FF] text-[#465FFF] dark:bg-[#1D2939] dark:text-[#7592FF]"
         : "text-[#667085] hover:bg-[#F9FAFB] dark:text-[#98A2B3] dark:hover:bg-[#1D2939]"
-    }
-  `;
-
-  const SectionChevron = ({ isOpen }: { isOpen: boolean }) =>
-    isOpen ? (
-      <ChevronUp size={17} strokeWidth={1.8} />
-    ) : (
-      <ChevronDown size={17} strokeWidth={1.8} />
-    );
+    }`;
 
   const handleToggle = (
     e: React.SyntheticEvent<HTMLDetailsElement>,
     key: string,
   ) => {
-    const details = e.currentTarget;
-
-    if (details.open) {
-      setOpenSection(key);
-    } else if (openSection === key) {
-      setOpenSection("");
-    }
+    setOpenSection(e.currentTarget.open ? key : "");
   };
 
   return (
     <aside
-      className={`
-    fixed
-    left-0
-    top-12
-    md:top-7
-    z-50
-    h-screen
-    w-72
-    border-r
-    border-border
-    bg-background
-    transition-transform
-    duration-300
-
-    lg:static
-    lg:translate-x-0
-
-    ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
-  `}
+      className={`fixed left-0 top-12 md:top-12 z-50 h-screen w-72 border-r border-border bg-background transition-transform duration-300 lg:static lg:translate-x-0 ${
+        sidebarOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
     >
-      {/* 
-          LOGO
-       */}
-
-      <div className=" h-12 shrink-0 items-center py-7 px-4 lg:block md:hidden hidden">
+      {/* LOGO */}
+      <div className="h-12 shrink-0 items-center py-7 px-4 lg:block md:hidden hidden">
         <img src={logo} alt="TailAdmin" className="h-8 w-auto object-contain" />
       </div>
 
-      {/* 
-          MENU TITLE
-       */}
-
+      {/* MENU TITLE */}
       <div className="px-5 pb-3 pt-7">
-        <span className="text-[11px] font-medium uppercase  text-[#98A2B3] dark:text-foreground">
+        <span className="text-[11px] font-medium uppercase text-[#98A2B3] dark:text-foreground">
           Menu
         </span>
       </div>
 
-      {/* 
-          DASHBOARD
-       */}
-
+      {/* DASHBOARD */}
       <details
         open={openSection === "dashboard"}
         onToggle={(e) => handleToggle(e, "dashboard")}
         className="group"
       >
-        <summary className={sectionHeaderClass(openSection === "dashboard")}>
+        <summary className={sectionHeaderClass("dashboard")}>
           <div className="flex items-center gap-3">
             <LayoutDashboard size={20} strokeWidth={1.8} />
-
             <span>Dashboard</span>
           </div>
-
-          <SectionChevron isOpen={openSection === "dashboard"} />
+          {openSection === "dashboard" ? (
+            <ChevronUp size={17} strokeWidth={1.8} />
+          ) : (
+            <ChevronDown size={17} strokeWidth={1.8} />
+          )}
         </summary>
 
         <div className="mt-1 space-y-1 pl-9 pr-0">
           {dashboardItems.map((item) => (
             <div
               key={item.id}
-              className={subItemClass(location.pathname === item.path)}
+              className={subItemClass(item.path)}
               onClick={() => navigate(item.path)}
             >
               {item.label}
@@ -188,30 +118,29 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </div>
       </details>
 
-      {/* 
-          Contact
-       */}
-
+      {/* CONTACT */}
       <details
         open={openSection === "contact"}
         onToggle={(e) => handleToggle(e, "contact")}
         className="group mt-1"
       >
-        <summary className={sectionHeaderClass(openSection === "contact")}>
+        <summary className={sectionHeaderClass("contact")}>
           <div className="flex items-center gap-3">
             <BookUser size={20} strokeWidth={1.8} />
-
             <span>Contact</span>
           </div>
-
-          <SectionChevron isOpen={openSection === "contact"} />
+          {openSection === "contact" ? (
+            <ChevronUp size={17} strokeWidth={1.8} />
+          ) : (
+            <ChevronDown size={17} strokeWidth={1.8} />
+          )}
         </summary>
 
         <div className="mt-1 space-y-1 pl-9">
           {Ecom.map((item) => (
             <div
               key={item.id}
-              className={subItemClass(location.pathname === item.path)}
+              className={subItemClass(item.path)}
               onClick={() => navigate(item.path)}
             >
               {item.label}
@@ -220,30 +149,29 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </div>
       </details>
 
-      {/* 
-          Invoices
-       */}
-
+      {/* INVOICES */}
       <details
         open={openSection === "invoices"}
         onToggle={(e) => handleToggle(e, "invoices")}
         className="group mt-1"
       >
-        <summary className={sectionHeaderClass(openSection === "invoices")}>
+        <summary className={sectionHeaderClass("invoices")}>
           <div className="flex items-center gap-3">
             <LayoutDashboard size={20} strokeWidth={1.8} />
-
             <span>Invoices</span>
           </div>
-
-          <SectionChevron isOpen={openSection === "invoices"} />
+          {openSection === "invoices" ? (
+            <ChevronUp size={17} strokeWidth={1.8} />
+          ) : (
+            <ChevronDown size={17} strokeWidth={1.8} />
+          )}
         </summary>
 
         <div className="mt-1 space-y-1 pl-9">
           {Task.map((item) => (
             <div
               key={item.id}
-              className={subItemClass(location.pathname === item.path)}
+              className={subItemClass(item.path)}
               onClick={() => navigate(item.path)}
             >
               {item.label}

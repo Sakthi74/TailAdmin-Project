@@ -31,7 +31,8 @@ const Navbar = ({ setSidebarOpen, sidebarOpen }: NavbarProps) => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 flex h-18 w-full items-center border-b border-border bg-background px-4 lg:px-6">
+    <nav className="sticky top-0 z-50 flex h-18 shrink-0 w-full items-center border-b border-border bg-background px-4 lg:px-6">
+      {" "}
       {/* MOBILE / TABLET */}
       <div className="relative flex w-full items-center justify-between lg:hidden">
         <div className="relative flex w-full items-center justify-between lg:hidden">
@@ -72,7 +73,6 @@ const Navbar = ({ setSidebarOpen, sidebarOpen }: NavbarProps) => {
           <MoreHorizontal size={22} />
         </button>
       </div>
-
       {/* DESKTOP */}
       <div className="hidden w-full items-center lg:flex">
         {/* Hamburger */}
