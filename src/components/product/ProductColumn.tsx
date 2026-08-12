@@ -15,7 +15,7 @@ const SortableHeader = ({
   return (
     <button
       onClick={() => column.toggleSorting(sorted === "asc")}
-      className="flex items-center gap-1 font-medium text-left"
+      className="flex items-center gap-1 text-sm font-medium text-[#9299B2] text-left"
     >
       {title}
 
@@ -71,7 +71,7 @@ export const productColumns: ColumnDef<Product>[] = [
             alt={product.title}
             className="h-10 w-10 rounded-md object-contain"
           />
-          <span className="font-medium">{product.title}</span>
+          <span className="font-medium">{product.title.slice(0, 20)}</span>
         </div>
       );
     },
@@ -82,6 +82,17 @@ export const productColumns: ColumnDef<Product>[] = [
     accessorKey: "category",
 
     header: ({ column }) => <SortableHeader column={column} title="Category" />,
+    cell: ({ row }) => {
+      const product = row.original;
+
+      return (
+        <>
+          <h1 className="text-[#888E9D] #99ABB8 text-transform:capitalize text-left font-medium">
+            {product.category}
+          </h1>
+        </>
+      );
+    },
   },
 
   /* Brand */
@@ -89,6 +100,17 @@ export const productColumns: ColumnDef<Product>[] = [
     accessorKey: "brand",
 
     header: ({ column }) => <SortableHeader column={column} title="Brand" />,
+    cell: ({ row }) => {
+      const product = row.original;
+
+      return (
+        <>
+          <h1 className="text-[#797E8A] text-transform: capitalize font-medium">
+            {product.brand}
+          </h1>
+        </>
+      );
+    },
   },
 
   /* Price */
@@ -97,7 +119,11 @@ export const productColumns: ColumnDef<Product>[] = [
 
     header: ({ column }) => <SortableHeader column={column} title="Price" />,
 
-    cell: ({ row }) => <span>${row.original.price.toLocaleString()}</span>,
+    cell: ({ row }) => (
+      <span className="text-[#797E8A] text-medium">
+        ${row.original.price.toLocaleString()}
+      </span>
+    ),
   },
 
   /* Stock */

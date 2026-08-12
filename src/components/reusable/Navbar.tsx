@@ -141,6 +141,7 @@ const Navbar = ({ setSidebarOpen, sidebarOpen }: NavbarProps) => {
               transition-colors
               hover:bg-muted
               hover:text-foreground
+              cursor-pointer
             "
             aria-label="Toggle theme"
           >
@@ -159,6 +160,7 @@ const Navbar = ({ setSidebarOpen, sidebarOpen }: NavbarProps) => {
               flex
               h-10
               w-10
+              cursor-pointer
               items-center
               justify-center
               rounded-full

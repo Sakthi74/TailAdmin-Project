@@ -3,7 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Ecom from "./pages/Ecom";
 import Crm from "./pages/Crm";
 import Sidebar from "./components/reusable/Sidebar";
-import ProductHeader from "./components/product/ProductHeader";
+import Product from "./pages/Product";
+import AddProductPage from "./pages/AddProductPage";
+import BillingPage from "../src/pages/BillingPage";
+import InvoiceListPage from "./pages/InvoiceListPage";
 
 const App = () => {
   return (
@@ -13,7 +16,10 @@ const App = () => {
           <Route path="/" element={<Sidebar />} />
           <Route path="/ecommerce" element={<Ecom />} />
           <Route path="/crm" element={<Crm />} />
-          <Route path="/products" element={<ProductHeader />} />
+          <Route path="/products" element={<Product />} />
+          <Route path="/billing" element={<BillingPage />} />
+          <Route path="/add-products" element={<AddProductPage />} />
+          <Route path="/invoices" element={<InvoiceListPage />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
