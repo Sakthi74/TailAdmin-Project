@@ -7,7 +7,7 @@ interface props {
   percentage: string;
 }
 
-const CrmStatsCard = ({ title, num, percentage }) => {
+const CrmStatsCard = ({ title, num, percentage }: props) => {
   return (
     <div className="p-3 w-full">
       {/* cards */}

@@ -7,7 +7,7 @@ import { saveProduct } from "../../ServiceLayer/ProductStorage";
 import { useForm } from "react-hook-form";
 import {
   ProductSchema,
-  type ProductListSchema,
+  // type ProductListSchema,
   type Product,
 } from "../../schema/ProductSchema";
 

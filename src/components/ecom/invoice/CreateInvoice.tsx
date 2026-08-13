@@ -30,7 +30,7 @@ const CreateInvoices = () => {
   });
 
   //fieldarray
-  const { fields, append, remove, replace } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "products",
   });

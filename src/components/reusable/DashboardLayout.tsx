@@ -8,7 +8,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex h-screen overflow-hidden">
       <div className="lg:flex-0">
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <Sidebar sidebarOpen={sidebarOpen} />
       </div>
       <div className="flex-1 min-w-0 flex flex-col">
         <Navbar setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />

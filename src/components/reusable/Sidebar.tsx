@@ -8,12 +8,7 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 
-interface SidebarProps {
-  sidebarOpen: boolean;
-  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Sidebar = ({ sidebarOpen }: SidebarProps) => {
+const Sidebar = ({ sidebarOpen }: any) => {
   const [openSection, setOpenSection] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,7 +43,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
     if (active) setOpenSection(active.key);
   }, [location.pathname]);
 
-  // shared className builders — declared once, reused by every section/item
+  // shared className builders
   const sectionHeaderClass = (key: string) =>
     `group flex h-11 w-64 ml-2 cursor-pointer list-none items-center justify-between rounded-lg px-6 text-sm font-medium transition-colors [&::-webkit-details-marker]:hidden ${
       openSection === key

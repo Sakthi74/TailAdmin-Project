@@ -60,7 +60,7 @@ const SalesCategory = () => {
                 onMouseEnter={(_, index) => setActiveIndex(index)}
                 onMouseLeave={() => setActiveIndex(null)}
               >
-                {categoryData.map((entry, index) => (
+                {categoryData.map((entry) => (
                   <Cell
                     key={entry.name}
                     fill={entry.color}
