@@ -7,6 +7,7 @@ import Product from "./pages/Product";
 import AddProductPage from "./pages/AddProductPage";
 import BillingPage from "../src/pages/BillingPage";
 import InvoiceListPage from "./pages/InvoiceListPage";
+import CreateInvoicePage from "./pages/CreateInvoicePage";
 
 const App = () => {
   return (
@@ -20,6 +21,8 @@ const App = () => {
           <Route path="/billing" element={<BillingPage />} />
           <Route path="/add-products" element={<AddProductPage />} />
           <Route path="/invoices" element={<InvoiceListPage />} />
+
+          <Route path="/create-invoice" element={<CreateInvoicePage />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>

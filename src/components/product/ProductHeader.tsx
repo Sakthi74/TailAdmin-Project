@@ -12,8 +12,8 @@ const ProductHeader = () => {
             ? "Product List"
             : location.pathname === "/billing"
               ? "Billing"
-              : location.pathname === "/invoice"
-                ? "Invoice"
+              : location.pathname === "/invoices"
+                ? "Create Invoice"
                 : location.pathname === "/create-invoice"
                   ? "Create Invoice"
                   : "Add Product"}
@@ -30,8 +30,8 @@ const ProductHeader = () => {
               ? "Products"
               : location.pathname === "/billing"
                 ? "Billing"
-                : location.pathname === "/invoice"
-                  ? "Invoice"
+                : location.pathname === "/invoices"
+                  ? "Create Invoice"
                   : location.pathname === "/create-invoice"
                     ? "Create Invoice"
                     : "Add Product"}

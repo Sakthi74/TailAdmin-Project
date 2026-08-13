@@ -1,6 +1,9 @@
 import { metrics } from "@/data/metrics";
 import { Card } from "@/ui/card";
+import { useNavigate } from "react-router-dom";
+import InvoiceTable from "./InvoiceTable";
 const InvoiceOverview = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 p-6 font-sans ">
       <Card className="p-4">
@@ -9,7 +12,12 @@ const InvoiceOverview = () => {
           <h2 className="text-md font-semibold text-slate-800 dark:text-slate-100">
             Overview
           </h2>
-          <button className="bg-[#475FFF] cursor-pointer hover:bg-indigo-700 text-white px-4 h-11 rounded-lg text-sm font-medium transition-colors">
+          <button
+            className="bg-[#475FFF] cursor-pointer hover:bg-indigo-700 text-white px-4 h-11 rounded-lg text-sm font-medium transition-colors"
+            onClick={() => {
+              navigate("/create-invoice");
+            }}
+          >
             + Create an Invoice
           </button>
         </div>
@@ -37,6 +45,7 @@ const InvoiceOverview = () => {
             );
           })}
         </div>
+        <InvoiceTable />
       </Card>
     </div>
   );

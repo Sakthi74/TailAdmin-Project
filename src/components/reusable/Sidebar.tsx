@@ -25,7 +25,6 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
 
   const Ecom = [
     { id: "products", label: "Products", path: "/products" },
-    { id: "addproducts", label: "AddProducts", path: "/add-products" },
     { id: "billing", label: "Billing", path: "/billing" },
     { id: "invoice", label: "Invoies", path: "/invoices" },
   ];
