@@ -8,7 +8,7 @@ import {
   type PaginationState,
 } from "@tanstack/react-table";
 import { Button } from "../../../ui/button";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { invoiceColumns, type Invoice } from "./InvoiceColumn";
 import { getInvoiceLocalStorage } from "@/ServiceLayer/InvoiceStorage";
 import { Search, Download, SlidersHorizontal } from "lucide-react";
@@ -33,23 +33,12 @@ const InvoiceTable = () => {
   });
 
   useEffect(() => {
-    // swap for a real fetch if invoices come from an API instead of localStorage
     const stored = getInvoiceLocalStorage();
     setInvoices(stored as unknown as Invoice[]);
   }, []);
 
-  const filteredData = useMemo(() => {
-    if (activeTab === "unpaid") {
-      return invoices.filter((inv) => inv.status === "Unpaid");
-    }
-    if (activeTab === "draft") {
-      return invoices.filter((inv) => inv.status === "Draft");
-    }
-    return invoices;
-  }, [invoices, activeTab]);
-
   const table = useReactTable({
-    data: filteredData,
+    data: invoices,
     columns: invoiceColumns,
     state: {
       sorting,
@@ -62,7 +51,7 @@ const InvoiceTable = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  const totalRows = filteredData.length;
+  const totalRows = invoices.length;
   const pageIndex = table.getState().pagination.pageIndex;
   const pageSize = table.getState().pagination.pageSize;
   const startRow = totalRows === 0 ? 0 : pageIndex * pageSize + 1;

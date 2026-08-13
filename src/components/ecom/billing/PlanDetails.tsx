@@ -9,7 +9,7 @@ const PlanDetails = () => {
   const percentUsed = (ordersUsed / ordersLimit) * 100;
 
   return (
-    <Card className="w-full rounded-2xl border border-border bg-card p-0 overflow-auto">
+    <Card className="w-full rounded-2xl border border-border bg-card p-0 lg:overflow-hidden overflow-auto">
       <div className="px-6 py-5 border-b border-border">
         <h2 className="text-lg font-semibold text-foreground">Plan Details</h2>
       </div>
@@ -90,11 +90,11 @@ const PlanDetails = () => {
               className="
       flex h-12 lg:flex-1 md:flex-1 items-center justify-center gap-2
       rounded-lg border border-border
-      px-4 text-sm font-medium
+      px-1 text-sm font-medium
       dark:text-foreground
       hover:bg-muted 
       sm:dark:bg-[#1C2938]
-      sm:w-2/3 sm:flex-none text-[#5B5F76]
+      sm:w-2/3  sm:flex-none text-[#5B5F76]
     "
             >
               Cancel Subscription
@@ -105,7 +105,7 @@ const PlanDetails = () => {
       rounded-lg bg-[#465FFF]
        text-xs font-medium text-white
       hover:bg-[#3648D8] cursor-pointer text-left
-      sm:w-1/2 sm:flex-none md:w-full lg:w-72
+      sm:w-1/2 sm:flex-none md:w-full lg:w-64
     "
             >
               Upgrade to Pro

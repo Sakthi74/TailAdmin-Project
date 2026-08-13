@@ -1,0 +1,167 @@
+.calendar-wrapper {
+  --calendar-border: hsl(var(--border));
+}
+
+/* Main calendar */
+.calendar-wrapper .rbc-calendar {
+  height: 100%;
+  font-family: inherit;
+}
+
+/* Header days */
+.calendar-wrapper .rbc-header {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 18px;
+
+  border-bottom: 1px solid hsl(var(--border));
+  border-left: 1px solid hsl(var(--border));
+
+  color: #98a2b3;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* Calendar cells */
+.calendar-wrapper .rbc-month-view {
+  border: 0;
+  border-radius: 0;
+}
+
+.calendar-wrapper .rbc-month-row {
+  border-top: 1px solid hsl(var(--border));
+}
+
+.calendar-wrapper .rbc-day-bg {
+  border-left: 1px solid hsl(var(--border));
+}
+
+/* Date number */
+.calendar-wrapper .rbc-date-cell {
+  padding: 14px 12px 8px;
+  text-align: left;
+  color: #344054;
+  font-size: 13px;
+}
+
+.dark .calendar-wrapper .rbc-date-cell {
+  color: #d0d5dd;
+}
+
+/* Outside month dates */
+.calendar-wrapper .rbc-off-range-bg {
+  background: transparent;
+}
+
+.calendar-wrapper .rbc-off-range {
+  color: #98a2b3;
+}
+
+/* Today */
+.calendar-wrapper .rbc-today {
+  background: rgba(71, 95, 255, 0.04);
+}
+
+/* Events */
+.calendar-wrapper .rbc-event {
+  min-height: 32px;
+  margin: 3px 8px;
+  padding: 7px 10px;
+
+  border: 0;
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Remove default event focus styling */
+.calendar-wrapper .rbc-event:focus {
+  outline: none;
+}
+
+/* Conference */
+.calendar-wrapper .event-conference {
+  background: #fff1f0;
+  color: #344054;
+  border-left: 4px solid #f04438;
+}
+
+/* Meeting */
+.calendar-wrapper .event-meeting {
+  background: #ecfdf3;
+  color: #344054;
+  border-left: 4px solid #12b76a;
+}
+
+/* Workshop */
+.calendar-wrapper .event-workshop {
+  background: #eef4ff;
+  color: #344054;
+  border-left: 4px solid #465fff;
+}
+
+/* Dark mode */
+.dark .calendar-wrapper .event-conference {
+  background: rgba(240, 68, 56, 0.12);
+  color: #fda29b;
+}
+
+.dark .calendar-wrapper .event-meeting {
+  background: rgba(18, 183, 106, 0.12);
+  color: #6ce9a6;
+}
+
+.dark .calendar-wrapper .event-workshop {
+  background: rgba(70, 95, 255, 0.12);
+  color: #9eb1ff;
+}
+
+/* Week/day views */
+.calendar-wrapper .rbc-time-view {
+  border: 0;
+}
+
+.calendar-wrapper .rbc-time-header {
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.calendar-wrapper .rbc-time-content {
+  border-top: 0;
+}
+
+.calendar-wrapper .rbc-timeslot-group {
+  min-height: 60px;
+}
+
+.calendar-wrapper .rbc-time-slot {
+  border-top: 1px solid hsl(var(--border));
+}
+
+/* Hide default toolbar because we're creating our own */
+.calendar-wrapper .rbc-toolbar {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .calendar-wrapper .rbc-header {
+    height: 42px;
+    padding-left: 8px;
+    font-size: 10px;
+  }
+
+  .calendar-wrapper .rbc-date-cell {
+    padding: 8px 6px;
+    font-size: 11px;
+  }
+
+  .calendar-wrapper .rbc-event {
+    margin: 2px;
+    padding: 5px;
+    font-size: 10px;
+  }
+}

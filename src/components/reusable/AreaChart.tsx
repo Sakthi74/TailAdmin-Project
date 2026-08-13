@@ -39,8 +39,8 @@ const AreaLineChart = ({ data }: AreaLineChartProps) => {
           <p className="text-[#8290AB] text-sm">
             Target you have've set for each month
           </p>
-          <div className=" flex">
-            <div className=" pt-5  lg:mr-12 justify-center gap-3 items-center ">
+          <div className=" flex gap-4">
+            <div className=" pt-5  p-2 justify-center  items-center ">
               <div className="flex justify-center gap-3 items-center ">
                 <h1 className="text-xl md:text-xl lg:text-xl font-bold">
                   $212,142.12
@@ -65,7 +65,8 @@ const AreaLineChart = ({ data }: AreaLineChartProps) => {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 sm:items-center ">
+        <div className="flex  gap-3 w-full md:w-auto shrink-0">
+          {" "}
           <div className="flex items-center bg-[#EEF2F9] dark:bg-[#2A3040] rounded-lg p-1 w-fit">
             {TABS.map((tab) => (
               <button
@@ -82,14 +83,6 @@ const AreaLineChart = ({ data }: AreaLineChartProps) => {
               </button>
             ))}
           </div>
-
-          <button
-            type="button"
-            className="flex items-center gap-2 border border-slate-200 dark:border-white/20 rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-white whitespace-nowrap w-fit"
-          >
-            <Calendar className="w-4 h-4 text-indigo-500" />
-            Aug 04 to Aug 10
-          </button>
         </div>
       </div>
 

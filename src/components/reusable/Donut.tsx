@@ -62,7 +62,7 @@ const Donut = ({
       </header>
 
       <div className="lg:h-56 h-24 md:h-32 w-full border-b relative">
-        <ResponsiveContainer width="100%" height="120%">
+        <ResponsiveContainer width="100%" height="110%">
           <PieChart>
             <Pie
               data={donutdata}

@@ -12,7 +12,7 @@ const Ecom = () => {
     <DashboardLayout>
       <div className="w-full min-w-0 max-w-full bg-[#F9FBFA] dark:bg-[#101929] p-5">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          {/* Left column: customer/order cards + sales bar */}
+          {/* customer order cards and sales bar */}
           <div className="lg:col-span-7 min-w-0 flex flex-col gap-5">
             <div className="flex flex-col sm:flex-row gap-5">
               <EcomCard title="customers" num="3,782" percentage="11.01" />
@@ -21,18 +21,15 @@ const Ecom = () => {
             <SalesBar />
           </div>
 
-          {/* Right column: monthly target */}
+          {/* monthly target */}
 
           <div className="lg:col-span-5 min-w-0">
             <MonthlyTarget />
           </div>
 
-          {/* Full-width statistics chart */}
           <div className="lg:col-span-12 min-w-0">
             <AreaLineChart data={earningsData} />
           </div>
-
-          {/* Full-width world map */}
 
           <div className="lg:col-span-5 min-w-0">
             <WorldMap />

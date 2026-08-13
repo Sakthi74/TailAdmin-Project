@@ -144,8 +144,22 @@ const Sidebar = ({ sidebarOpen }: any) => {
           ))}
         </div>
       </details>
+      {/* CALENDAR */}
+      <div
+        className={`group flex h-11 w-64 ml-2 cursor-pointer items-center rounded-lg px-6 text-sm font-medium transition-colors ${
+          location.pathname === "/calender"
+            ? "bg-[#ECF3FF] text-[#465FFF] dark:bg-[#1D2939] dark:text-[#7592FF]"
+            : "text-[#344054] hover:bg-[#F2F4F7] dark:text-[#D0D5DD] dark:hover:bg-[#1D2939]"
+        }`}
+        onClick={() => navigate("/calender")}
+      >
+        <div className="flex items-center gap-3">
+          <LayoutDashboard size={20} strokeWidth={1.8} />
+          <span>Calendar</span>
+        </div>
+      </div>
 
-      {/* INVOICES */}
+      {/* Tasks */}
       <details
         open={openSection === "invoices"}
         onToggle={(e) => handleToggle(e, "invoices")}
@@ -154,7 +168,7 @@ const Sidebar = ({ sidebarOpen }: any) => {
         <summary className={sectionHeaderClass("invoices")}>
           <div className="flex items-center gap-3">
             <LayoutDashboard size={20} strokeWidth={1.8} />
-            <span>Invoices</span>
+            <span>Tasks</span>
           </div>
           {openSection === "invoices" ? (
             <ChevronUp size={17} strokeWidth={1.8} />
