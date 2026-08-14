@@ -3,6 +3,7 @@ import BillingInfo from "../../src/components/ecom/billing/BillingInfo";
 import DashboardLayout from "@/components/reusable/DashboardLayout";
 import ProductHeader from "@/components/product/ProductHeader";
 import PaymentMethods from "@/components/ecom/billing/PaymentMethods";
+import InvoiceTable from "@/components/ecom/invoice/InvoiceTable";
 
 const BillingPage = () => {
   return (
@@ -16,6 +17,9 @@ const BillingPage = () => {
 
           <div className="w-full lg:col-span-2">
             <PaymentMethods />
+          </div>
+          <div className="w-full lg:col-span-2">
+            <InvoiceTable />
           </div>
         </div>
       </DashboardLayout>

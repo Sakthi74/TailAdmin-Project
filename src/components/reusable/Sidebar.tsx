@@ -25,7 +25,7 @@ const Sidebar = ({ sidebarOpen }: any) => {
   ];
 
   const Task = [
-    { id: "list", label: "Product", path: "/list" },
+    { id: "list", label: "List", path: "/list" },
     { id: "kanban", label: "Kanban", path: "/kanban" },
   ];
 
@@ -123,7 +123,7 @@ const Sidebar = ({ sidebarOpen }: any) => {
         <summary className={sectionHeaderClass("contact")}>
           <div className="flex items-center gap-3">
             <BookUser size={20} strokeWidth={1.8} />
-            <span>Contact</span>
+            <span>E-Commerce</span>
           </div>
           {openSection === "contact" ? (
             <ChevronUp size={17} strokeWidth={1.8} />

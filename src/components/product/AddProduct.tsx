@@ -318,23 +318,22 @@ const AddProduct = () => {
             ))}
           </div>
         )}
-
-        {/* Buttons */}
-        <div className="mt-8 flex flex-col-reverse sm:flex-row sm:justify-end items-stretch sm:items-center gap-4">
-          <Button
-            variant="outline"
-            className="h-12 rounded-md bg-[#FFFFFF] font-medium text-black hover:bg-[#3f4b8c] dark:text-foreground"
-          >
-            Draft
-          </Button>
-          <Button
-            className="h-12 rounded-md bg-[#475FFF] hover:bg-[#3f4b8c] text-white"
-            type="submit"
-          >
-            Publish Product
-          </Button>
-        </div>
       </Card>
+      {/* Buttons */}
+      <div className="mt-8 flex flex-col-reverse sm:flex-row sm:justify-end items-stretch sm:items-center gap-4">
+        <Button
+          variant="outline"
+          className="h-12 rounded-md bg-[#FFFFFF] font-medium text-black hover:bg-[#3f4b8c] dark:text-foreground"
+        >
+          Draft
+        </Button>
+        <Button
+          className="h-12 rounded-md bg-[#475FFF] hover:bg-[#3f4b8c] text-white"
+          type="submit"
+        >
+          Publish Product
+        </Button>
+      </div>
     </form>
   );
 };

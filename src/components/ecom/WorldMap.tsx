@@ -12,7 +12,7 @@ const countryStats = [
 
 const WorldMap = () => {
   return (
-    <Card className="w-full min-w-0 lg:max-w-[600px] p-5">
+    <Card className="w-full lg:h-[90%] h-full min-w-0 lg:max-w-[600px] p-5">
       <header className="flex items-start justify-between px-2 sm:px-5 py-2">
         <div>
           <h2 className="text-lg font-semibold text-foreground">

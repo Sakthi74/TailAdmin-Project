@@ -15,7 +15,7 @@ const SortableHeader = ({
   return (
     <button
       onClick={() => column.toggleSorting(sorted === "asc")}
-      className="flex items-center gap-1 text-sm font-medium text-[#9299B2] text-left"
+      className="flex items-center gap-1 whitespace-nowrap text-sm font-medium text-[#9299B2] text-left"
     >
       {title}
 
@@ -35,6 +35,7 @@ export const productColumns: ColumnDef<Product>[] = [
   {
     id: "select",
     enableSorting: false,
+    size: 40,
 
     header: ({ table }) => (
       <input
@@ -58,6 +59,7 @@ export const productColumns: ColumnDef<Product>[] = [
   /* Product */
   {
     accessorKey: "title",
+    size: 240,
 
     header: ({ column }) => <SortableHeader column={column} title="Products" />,
 
@@ -65,13 +67,15 @@ export const productColumns: ColumnDef<Product>[] = [
       const product = row.original;
 
       return (
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 max-w-[220px] items-center gap-3">
           <img
             src={product.thumbnail}
             alt={product.title}
-            className="h-10 w-10 rounded-md object-contain"
+            className="h-10 w-10 shrink-0 rounded-md object-contain"
           />
-          <span className="font-medium">{product.title.slice(0, 20)}</span>
+          <span className="truncate font-medium" title={product.title}>
+            {product.title}
+          </span>
         </div>
       );
     },
@@ -80,17 +84,19 @@ export const productColumns: ColumnDef<Product>[] = [
   /* Category */
   {
     accessorKey: "category",
+    size: 140,
 
     header: ({ column }) => <SortableHeader column={column} title="Category" />,
     cell: ({ row }) => {
       const product = row.original;
 
       return (
-        <>
-          <h1 className="text-[#888E9D] #99ABB8 text-transform:capitalize text-left font-medium">
-            {product.category}
-          </h1>
-        </>
+        <p
+          className="max-w-[130px] truncate text-left font-medium capitalize text-[#888E9D]"
+          title={product.category}
+        >
+          {product.category}
+        </p>
       );
     },
   },
@@ -98,17 +104,19 @@ export const productColumns: ColumnDef<Product>[] = [
   /* Brand */
   {
     accessorKey: "brand",
+    size: 140,
 
     header: ({ column }) => <SortableHeader column={column} title="Brand" />,
     cell: ({ row }) => {
       const product = row.original;
 
       return (
-        <>
-          <h1 className="text-[#797E8A] text-transform: capitalize font-medium">
-            {product.brand}
-          </h1>
-        </>
+        <p
+          className="max-w-[130px] truncate font-medium capitalize text-[#797E8A]"
+          title={product.brand}
+        >
+          {product.brand}
+        </p>
       );
     },
   },
@@ -116,11 +124,12 @@ export const productColumns: ColumnDef<Product>[] = [
   /* Price */
   {
     accessorKey: "price",
+    size: 100,
 
     header: ({ column }) => <SortableHeader column={column} title="Price" />,
 
     cell: ({ row }) => (
-      <span className="text-[#797E8A] text-medium">
+      <span className="whitespace-nowrap font-medium text-[#797E8A]">
         ${row.original.price.toLocaleString()}
       </span>
     ),
@@ -129,6 +138,7 @@ export const productColumns: ColumnDef<Product>[] = [
   /* Stock */
   {
     accessorKey: "stock",
+    size: 120,
 
     header: ({ column }) => <SortableHeader column={column} title="Stock" />,
 
@@ -139,8 +149,8 @@ export const productColumns: ColumnDef<Product>[] = [
         <span
           className={
             stock === 0
-              ? "rounded-full bg-red-50 px-2 py-1 text-xs text-red-500"
-              : "rounded-full bg-green-50 px-2 py-1 text-xs text-green-600"
+              ? "whitespace-nowrap rounded-full bg-red-50 px-2 py-1 text-xs text-red-500"
+              : "whitespace-nowrap rounded-full bg-green-50 px-2 py-1 text-xs text-green-600"
           }
         >
           {stock === 0 ? "Out of Stock" : "In Stock"}
@@ -153,6 +163,7 @@ export const productColumns: ColumnDef<Product>[] = [
   {
     accessorFn: (row) => row.meta.createdAt,
     id: "createdAt",
+    size: 130,
 
     header: ({ column }) => (
       <SortableHeader column={column} title="Created At" />
@@ -161,11 +172,15 @@ export const productColumns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       const date = new Date(row.original.meta.createdAt);
 
-      return date.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      });
+      return (
+        <span className="whitespace-nowrap">
+          {date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })}
+        </span>
+      );
     },
   },
 
@@ -173,11 +188,12 @@ export const productColumns: ColumnDef<Product>[] = [
   {
     id: "actions",
     enableSorting: false,
+    size: 50,
 
     header: "",
 
     cell: () => (
-      <button>
+      <button className="cursor-pointer text-muted-foreground hover:text-foreground">
         <MoreHorizontal size={18} />
       </button>
     ),

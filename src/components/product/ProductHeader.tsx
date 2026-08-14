@@ -16,7 +16,11 @@ const ProductHeader = () => {
                 ? "Create Invoice"
                 : location.pathname === "/create-invoice"
                   ? "Create Invoice"
-                  : "Add Product"}
+                  : location.pathname === "/list"
+                    ? "Task List"
+                    : location.pathname === "/kanban"
+                      ? "Kanban"
+                      : "Add Product"}
         </h1>
 
         <div className="flex items-center gap-2 text-sm">
@@ -34,7 +38,11 @@ const ProductHeader = () => {
                   ? "Create Invoice"
                   : location.pathname === "/create-invoice"
                     ? "Create Invoice"
-                    : "Add Product"}
+                    : location.pathname === "/list"
+                      ? "Task List"
+                      : location.pathname === "/kanban"
+                        ? "Kanban"
+                        : "Add Product"}
           </span>
         </div>
       </div>

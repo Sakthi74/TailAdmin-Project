@@ -18,6 +18,7 @@ import {
   SlidersHorizontal,
   ChevronLeft,
   ChevronRight,
+  Plus,
 } from "lucide-react";
 import {
   Table,
@@ -63,7 +64,7 @@ const ProductList = () => {
   return (
     <>
       <div className="w-full min-w-0 rounded-xl dark:bg-[#171F2E] bg-white p-2">
-        <div className="flex w-full gap-3 lg:justify-between md:justify-between flex-col lg:flex-row md:flex-row p-3  sm:w-auto">
+        <div className="flex w-full flex-col gap-3 p-3 sm:w-auto md:flex-row md:justify-between lg:flex-row lg:justify-between">
           {/* Title + Description */}
           <div>
             <h2 className="text-base font-semibold dark:text-foreground text-black md:text-lg">
@@ -76,44 +77,40 @@ const ProductList = () => {
           </div>
 
           {/* actions */}
-          <div className="flex gap-3 lg:mr-12">
+          <div className="flex shrink-0 gap-3">
             <button
               className="
-      flex h-12 lg:flex-1 md:flex-1 items-center justify-center gap-2
-      rounded-lg border border-border
-      px-4 text-sm font-medium
-      dark:text-foreground
-      hover:bg-muted 
-      sm:dark:bg-[#1C2938]
-      sm:w-2/3 sm:flex-none text-[#5B5F76]
-    "
+                flex h-11 items-center justify-center gap-2
+                rounded-lg border border-border
+                px-4 text-sm font-medium
+                text-[#5B5F76] dark:text-foreground
+                hover:bg-muted
+                dark:bg-[#1C2938]
+              "
             >
               Export
-              <span>
-                <Download size={16} className="text-[#676F7F]" />
-              </span>
+              <Download size={16} className="text-[#676F7F]" />
             </button>
 
             <button
               className="
-      flex h-12 lg:flex-1 md:flex-1  items-center justify-center gap-2
-      rounded-lg bg-[#465FFF]
-       text-xs font-medium text-white
-      hover:bg-[#3648D8] cursor-pointer text-left
-      sm:w-1/2 sm:flex-none md:w-full lg:w-72
-    "
+                flex h-11 cursor-pointer items-center justify-center gap-2
+                rounded-lg bg-[#465FFF] px-4
+                text-sm font-medium text-white
+                hover:bg-[#3648D8]
+              "
               onClick={() => {
                 navigate("/add-products");
               }}
             >
-              <span className="text-lg leading-none">+</span>
+              <Plus size={16} strokeWidth={2.5} />
               Add Product
             </button>
           </div>
         </div>
 
-        <div className="flex justify-between border-y border-x-[#F2F1F2] p-4 ">
-          <div className="relative w-full max-w-md ">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-y border-x-[#F2F1F2] p-4">
+          <div className="relative w-full max-w-md">
             <Search
               size={19}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
@@ -124,7 +121,7 @@ const ProductList = () => {
               placeholder="Search ..."
               className="
               h-11
-              w-2/3
+              w-full
               shadow-black
               rounded-lg
               border
@@ -145,7 +142,7 @@ const ProductList = () => {
           </div>
           <Button
             variant="outline"
-            className="p-5 border w-24  border-gray-400cursor-pointer"
+            className="w-24 cursor-pointer border border-gray-400 p-5"
             size="sm"
           >
             <SlidersHorizontal />
@@ -155,12 +152,16 @@ const ProductList = () => {
 
         {/* TABLE  */}
         <div className="w-full overflow-x-auto">
-          <Table className="min-w-[640px]">
+          <Table className="w-full min-w-[640px] table-fixed">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      style={{ width: header.getSize() }}
+                      className="overflow-hidden"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -188,7 +189,11 @@ const ProductList = () => {
               {table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="h-20">
+                    <TableCell
+                      key={cell.id}
+                      style={{ width: cell.column.getSize() }}
+                      className="h-20 overflow-hidden"
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),

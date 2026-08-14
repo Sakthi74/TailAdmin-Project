@@ -9,6 +9,8 @@ import BillingPage from "../src/pages/BillingPage";
 import InvoiceListPage from "./pages/InvoiceListPage";
 import CreateInvoicePage from "./pages/CreateInvoicePage";
 import CalendarPage from "./pages/CalenderPage";
+import ListPage from "./pages/ListPage";
+import Kanban from "./pages/KanbanPage";
 
 const App = () => {
   return (
@@ -24,6 +26,8 @@ const App = () => {
           <Route path="/invoices" element={<InvoiceListPage />} />
           <Route path="/calender" element={<CalendarPage />} />
           <Route path="/create-invoice" element={<CreateInvoicePage />} />
+          <Route path="/list" element={<ListPage />} />
+          <Route path="/kanban" element={<Kanban />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>

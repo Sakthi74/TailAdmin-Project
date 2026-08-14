@@ -8,23 +8,27 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
-import { Calendar } from "lucide-react";
 import { Badge } from "../../ui/badge";
+import SegmentedTabs from "../reusable/SegmentedTabs";
 
-const TABS = ["Monthly", "Quarterly", "Annually"];
+const TABS = ["Monthly", "Quarterly", "Annually"] as const;
+type Tab = (typeof TABS)[number];
 
 interface ChartData {
   month: string;
   revenue: number;
   target: number;
 }
+import { useLocation } from "react-router-dom";
 
 interface AreaLineChartProps {
   data: ChartData[];
 }
 
 const AreaLineChart = ({ data }: AreaLineChartProps) => {
-  const [activeTab, setActiveTab] = useState("Quarterly");
+  const [activeTab, setActiveTab] = useState<Tab>("Quarterly");
+
+  const location = useLocation();
 
   return (
     <div
@@ -39,50 +43,40 @@ const AreaLineChart = ({ data }: AreaLineChartProps) => {
           <p className="text-[#8290AB] text-sm">
             Target you have've set for each month
           </p>
-          <div className=" flex gap-4">
-            <div className=" pt-5  p-2 justify-center  items-center ">
-              <div className="flex justify-center gap-3 items-center ">
-                <h1 className="text-xl md:text-xl lg:text-xl font-bold">
-                  $212,142.12
-                </h1>
-                <Badge className="bg-[#EDFDF3] text-[#1D9F61] dark:bg-[#173539] dark:text-green">
-                  +23.2%
-                </Badge>
+          {location.pathname === "/crm" ? (
+            <div className=" flex gap-4">
+              <div className="hidden md:block pt-5 p-2">
+                <div className="flex justify-center gap-3 items-center">
+                  <h1 className="text-xl font-bold">$212,142.12</h1>
+
+                  <Badge className="bg-[#EDFDF3] text-[#1D9F61] dark:bg-[#173539] dark:text-green">
+                    +23.2%
+                  </Badge>
+                </div>
+
+                <p className="text-sm text-[#A8B5C0]">Avg. Yearly Profit</p>
               </div>
-              <p className="text-sm text-[#A8B5C0]">Avg. Yearly Profit</p>
-            </div>
-            <div className=" pt-5  lg:mr-12 justify-center gap-3 items-center ">
-              <div className="flex justify-center gap-3 items-center ">
-                <h1 className="text-xl md:text-xl lg:text-xl font-bold">
-                  $30,321.23
-                </h1>
-                <Badge className="bg-[#FFF2F2] text-[#E36961] dark:bg-[#382531] dark:text-red-500">
-                  -12.3%
-                </Badge>
+              <div className="hidden md:block pt-5 lg:mr-12">
+                <div className="flex justify-center gap-3 items-center">
+                  <h1 className="text-xl font-bold">$30,321.23</h1>
+
+                  <Badge className="bg-[#FFF2F2] text-[#E36961] dark:bg-[#382531] dark:text-red-500">
+                    -12.3%
+                  </Badge>
+                </div>
+
+                <p className="text-sm text-[#A8B5C0]">Avg. Yearly Profit</p>
               </div>
-              <p className="text-sm text-[#A8B5C0]">Avg. Yearly Profit</p>
             </div>
-          </div>
+          ) : null}
         </div>
 
-        <div className="flex  gap-3 w-full md:w-auto shrink-0">
-          {" "}
-          <div className="flex items-center bg-[#EEF2F9] dark:bg-[#2A3040] rounded-lg p-1 w-fit">
-            {TABS.map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                onClick={() => setActiveTab(tab)}
-                className={`px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap ${
-                  activeTab === tab
-                    ? "bg-white dark:bg-[#1C2130] text-slate-900 dark:text-white font-medium shadow-sm"
-                    : "text-slate-500 dark:text-slate-400"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
+        <div className="flex gap-3 w-full md:w-auto shrink-0">
+          <SegmentedTabs
+            tabs={TABS}
+            activeTab={activeTab}
+            onChange={setActiveTab}
+          />
         </div>
       </div>
 

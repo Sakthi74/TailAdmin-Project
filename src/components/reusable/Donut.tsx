@@ -61,7 +61,7 @@ const Donut = ({
         </div>
       </header>
 
-      <div className="lg:h-56 h-24 md:h-32 w-full border-b relative">
+      <div className="lg:h-56 h-24 md:h-32 w-full border-b-0 relative">
         <ResponsiveContainer width="100%" height="110%">
           <PieChart>
             <Pie
@@ -122,7 +122,7 @@ const Donut = ({
       )}
 
       {ecomActive && (
-        <p className="text-center flex justify-center items-center lg:mb-12 sm:mb-5 text-[#B3B8C1]">
+        <p className="text-center flex justify-center items-center lg:mb-12 sm:mb-5 w-2/3 lg:ml-24 ml-12  text-[#B3B8C1]">
           You earn $3287 today, it's higher than last month. Keep up your good
           work!
         </p>

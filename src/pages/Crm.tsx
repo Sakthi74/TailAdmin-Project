@@ -5,7 +5,7 @@ import { earningsData } from "../../src/data/Revenue";
 import CrmDonut from "../components/crm/CrmDonut";
 import SalesCategory from "@/components/crm/SalesCategory";
 import UpcomingSchedule from "@/components/crm/UpcomingSchedule";
-import RecentOrders from "@/components/crm/RecentCrmOrders";
+import RecentCrmOrders from "@/components/crm/RecentCrmOrders";
 
 const Crm = () => {
   return (
@@ -38,7 +38,7 @@ const Crm = () => {
         </div>
 
         <div className="lg:col-span-12 min-w-0">
-          <RecentOrders />
+          <RecentCrmOrders />
         </div>
       </div>
     </DashboardLayout>

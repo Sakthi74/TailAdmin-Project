@@ -48,7 +48,7 @@ const UpcomingSchedule = () => {
         </div>
       </header>
 
-      <div className="flex flex-col divide-y divide-border">
+      <div className="flex flex-col  border-0">
         {scheduleItems.map((item) => (
           <div
             key={item.id}
