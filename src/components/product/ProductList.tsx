@@ -61,6 +61,32 @@ const ProductList = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  const getPageNumbers = (
+  current: number,
+  total: number,
+): (number | "ellipsis")[] => {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i);
+  }
+
+  const pages: (number | "ellipsis")[] = [0];
+
+  if (current > 2) pages.push("ellipsis");
+
+  const start = Math.max(1, current - 1);
+  const end = Math.min(total - 2, current + 1);
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+
+  if (current < total - 3) pages.push("ellipsis");
+
+  pages.push(total - 1);
+
+  return pages;
+};
+
   return (
     <>
       <div className="w-full min-w-0 rounded-xl dark:bg-[#171F2E] bg-white p-2">
@@ -206,36 +232,71 @@ const ProductList = () => {
           </Table>
         </div>
 
-        {/* PAGINATION */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4">
-          <p className="text-sm text-muted-foreground">
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount() || 1}
-          </p>
+     {/* PAGINATION */}
+<div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4">
+  <p className="text-sm text-muted-foreground">
+    Showing{" "}
+    {table.getRowModel().rows.length === 0
+      ? 0
+      : table.getState().pagination.pageIndex *
+          table.getState().pagination.pageSize +
+        1}{" "}
+    to{" "}
+    {Math.min(
+      (table.getState().pagination.pageIndex + 1) *
+        table.getState().pagination.pageSize,
+      table.getFilteredRowModel().rows.length,
+    )}{" "}
+    of {table.getFilteredRowModel().rows.length}
+  </p>
 
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-              className="h-9 px-3"
-            >
-              <ChevronLeft size={16} />
-              Previous
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-              className="h-9 px-3"
-            >
-              Next
-              <ChevronRight size={16} />
-            </Button>
-          </div>
-        </div>
+  <div className="flex items-center gap-2">
+    <button
+      type="button"
+      onClick={() => table.previousPage()}
+      disabled={!table.getCanPreviousPage()}
+      className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      <ChevronLeft size={16} />
+    </button>
+
+    {getPageNumbers(
+      table.getState().pagination.pageIndex,
+      table.getPageCount() || 1,
+    ).map((page, idx) =>
+      page === "ellipsis" ? (
+        <span
+          key={`ellipsis-${idx}`}
+          className="px-1 text-sm text-muted-foreground"
+        >
+          ...
+        </span>
+      ) : (
+        <button
+          key={page}
+          type="button"
+          onClick={() => table.setPageIndex(page)}
+          className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium transition ${
+            page === table.getState().pagination.pageIndex
+              ? "bg-[#465FFF] text-white"
+              : "border border-border text-foreground hover:bg-muted dark:bg-[#1C2938]"
+          }`}
+        >
+          {page + 1}
+        </button>
+      ),
+    )}
+
+    <button
+      type="button"
+      onClick={() => table.nextPage()}
+      disabled={!table.getCanNextPage()}
+      className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      <ChevronRight size={16} />
+    </button>
+  </div>
+</div>
       </div>
     </>
   );
