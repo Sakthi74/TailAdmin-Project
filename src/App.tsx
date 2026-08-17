@@ -2,7 +2,6 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Ecom from "./pages/Ecom";
 import Crm from "./pages/Crm";
-import Sidebar from "./components/reusable/Sidebar";
 import Product from "./pages/Product";
 import AddProductPage from "./pages/AddProductPage";
 import BillingPage from "../src/pages/BillingPage";
@@ -17,7 +16,7 @@ const App = () => {
     <BrowserRouter>
       <ThemeProvider>
         <Routes>
-          <Route path="/" element={<Sidebar />} />
+          <Route path="/" element={<Ecom />} />
           <Route path="/ecommerce" element={<Ecom />} />
           <Route path="/crm" element={<Crm />} />
           <Route path="/products" element={<Product />} />

@@ -40,7 +40,7 @@ const scheduleItems: ScheduleItem[] = [
 
 const UpcomingSchedule = () => {
   return (
-    <Card className="w-full p-5">
+    <Card className="w-full overflow-x-auto p-5">
       <header className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-medium">Upcoming Schedule</h2>
         <div className="cursor-pointer ">

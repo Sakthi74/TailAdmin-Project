@@ -347,7 +347,7 @@ const Kanban = () => {
                       <MoreHorizontal size={18} />
                     </button>
                   </div>
-
+                  <div className="border-r h-full border-r-gray-300" />
                   <TaskDropZone
                     status={column.status}
                     onDropTask={handleDropOnSection}

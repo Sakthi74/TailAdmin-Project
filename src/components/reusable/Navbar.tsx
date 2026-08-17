@@ -36,7 +36,7 @@ const Navbar = ({ setSidebarOpen, sidebarOpen }: NavbarProps) => {
       <nav className="flex h-18 shrink-0 w-full items-center border-b border-border bg-background px-4 lg:px-6">
         {" "}
         {/* MOBILE / TABLET */}
-        <div className="relative flex w-full items-center justify-between lg:hidden">
+        <div className="relative flex w-full items-center justify-between xl:hidden">
           <div className="relative flex w-full items-center justify-between lg:hidden">
             {sidebarOpen ? (
               <button

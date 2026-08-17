@@ -6,9 +6,9 @@ const Product = () => {
   return (
     <div className="bg-[#F9FBFA] dark:bg-background min-w-0">
       <DashboardLayout>
-        <div className="min-w-0">
+        <div className="min-w-0 mb-24">
           <ProductHeader />
-          <div className="mx-4 sm:mx-6 lg:mx-8 min-w-0">
+          <div className="mx-4 sm:mx-6  lg:mx-8 min-w-0">
             <ProductList />
           </div>
         </div>

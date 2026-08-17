@@ -1,6 +1,7 @@
 import { Filter, Trash2 } from "lucide-react";
 import { Card } from "../../ui/card";
 import { Button } from "../../ui/button";
+import StatusBadge from "../reusable/StatusBadge";
 
 interface Deal {
   id: string;
@@ -10,7 +11,7 @@ interface Deal {
   product: string;
   dealValue: number;
   closeDate: string;
-  status: "Complete" | "Pending" | "Cancel";
+  status: "Completed" | "Pending" | "Cancel";
 }
 
 const DEALS: Deal[] = [
@@ -22,7 +23,7 @@ const DEALS: Deal[] = [
     product: "Software License",
     dealValue: 1850.34,
     closeDate: "2024-06-15",
-    status: "Complete",
+    status: "Completed",
   },
   {
     id: "2",
@@ -62,7 +63,7 @@ const DEALS: Deal[] = [
     product: "Premium Support",
     dealValue: 1520.0,
     closeDate: "2024-06-30",
-    status: "Complete",
+    status: "Completed",
   },
 ];
 
@@ -73,12 +74,6 @@ const AVATAR_COLORS = [
   "bg-violet-100 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400",
   "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400",
 ];
-
-const STATUS_STYLES: Record<Deal["status"], string> = {
-  Complete: "text-emerald-600 dark:text-emerald-400",
-  Pending: "text-amber-500 dark:text-amber-400",
-  Cancel: "text-rose-500 dark:text-rose-400",
-};
 
 const getInitials = (name: string) =>
   name
@@ -176,11 +171,7 @@ const RecentCrmOrders = () => {
                 <td className="py-3 text-muted-foreground">{deal.closeDate}</td>
 
                 <td className="py-3">
-                  <span
-                    className={`text-xs font-medium ${STATUS_STYLES[deal.status]}`}
-                  >
-                    {deal.status}
-                  </span>
+                  <StatusBadge input={deal.status} />
                 </td>
 
                 <td className="py-3">
