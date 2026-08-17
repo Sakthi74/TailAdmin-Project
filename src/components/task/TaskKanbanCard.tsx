@@ -67,7 +67,7 @@ const TaskKanbanCard = ({ task }: TaskKanbanCardProps) => {
     >
       {/* TITLE + ASSIGNEE */}
       <div className="flex items-start justify-between gap-3">
-        <p className="text-sm font-medium leading-6 text-foreground">
+        <p className="text-sm font-medium text-[#7E858E] dark:text-foreground">
           {task.title}
         </p>
 

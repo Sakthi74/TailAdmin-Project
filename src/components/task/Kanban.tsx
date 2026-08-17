@@ -321,14 +321,17 @@ const Kanban = () => {
           </Dialog>
 
           {/* BOARD */}
-          <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-start md:gap-5 md:overflow-x-auto md:pb-2">
+          <div className="mt-1 flex flex-col border-t-2 border-[#F2F3F5]  md:flex-row md:items-start md:gap-5 md:overflow-x-auto md:pb-2 ">
             {COLUMNS.map((column) => {
               const columnTasks = tasklist.filter(
                 (task) => task.status === column.status,
               );
 
               return (
-                <div key={column.status} className="md:min-w-[300px] md:flex-1">
+                <div
+                  key={column.status}
+                  className="md:min-w-[300px] border-r-2 border-[#F2F3F5]  last:border-r-0 p-3 h-full md:flex-1"
+                >
                   <div className="mb-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <h2 className="text-base font-semibold text-foreground">

@@ -341,7 +341,7 @@ const List = () => {
             <section>
               <div className="mb-3 flex items-center gap-2">
                 <h2 className="text-lg font-semibold">In Progress</h2>
-                <span className="rounded-full bg-muted px-2 py-1 text-xs">
+                <span className="rounded-full text-[#BC5A2D] font-bold bg-[#FFFAEB] px-2 py-1 text-xs">
                   {inProgressTasks.length}
                 </span>
               </div>
@@ -361,7 +361,7 @@ const List = () => {
             <section>
               <div className="mb-3 flex items-center gap-2">
                 <h2 className="text-lg font-semibold">Completed</h2>
-                <span className="rounded-full bg-muted px-2 py-1 text-xs">
+                <span className="rounded-full bg-[#EDFDF3] text-[#2C8D65] font-bold px-2 py-1 text-xs">
                   {completedTasks.length}
                 </span>
               </div>

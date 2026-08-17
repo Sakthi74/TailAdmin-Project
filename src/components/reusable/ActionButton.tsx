@@ -17,7 +17,7 @@ const ActionButton = ({
 
   const variantClass =
     variant === "primary"
-      ? "bg-[#465FFF] text-white hover:bg-[#3648d8]"
+      ? "bg-[#465FFF] text-white hover:bg-[#3648d8] px-1"
       : "border border-border text-foreground hover:bg-muted";
 
   return (

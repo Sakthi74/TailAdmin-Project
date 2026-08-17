@@ -17,22 +17,20 @@ interface TaskListHeaderProps {
 }
 
 const TaskListHeader = ({ onAddTask, onFilter }: TaskListHeaderProps) => {
-  const [activeTab, setActiveTab] = useState<TaskTab>("completed");
+  const [activeTab, setActiveTab] = useState<TaskTab>("all");
 
   return (
-    <div className="flex lg:flex-row md:flex-col flex-col sm:items-center md:items-start justify-between gap-4 rounded-2xl border border-border bg-card p-4">
+    <div className="flex lg:flex-row md:flex-col flex-col sm:items-center md:items-start justify-between gap-4 rounded-2xl bg-card p-4">
       <div
         className="
-    grid sm:grid-cols-2 sm:grid-rows-2
+    grid grid-cols-2 gap-1
     md:flex md:flex-row
-    items-center gap-1
-    bg-[#F2F4F7] dark:bg-[#2A3040]
-    rounded-lg p-1
-    w-fit
-    overflow-x-auto
+    items-center
+    bg-[#F2F4F7] dark:bg-[#2A3040] rounded-md
+ p-1
+    w-full md:w-fit
   "
       >
-        {" "}
         {TABS.map((tab) => {
           const isActive = activeTab === tab.value;
           return (
@@ -40,7 +38,7 @@ const TaskListHeader = ({ onAddTask, onFilter }: TaskListHeaderProps) => {
               key={tab.value}
               type="button"
               onClick={() => setActiveTab(tab.value)}
-              className={`flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap ${
+              className={`flex items-center justify-between md:justify-center gap-2 px-3 py-1.5 text-sm rounded-md transition-colors whitespace-nowrap ${
                 isActive
                   ? "bg-white dark:bg-[#1C2130] text-slate-900 dark:text-white font-semibold shadow-sm"
                   : "text-slate-500 dark:text-slate-400"
@@ -73,7 +71,7 @@ const TaskListHeader = ({ onAddTask, onFilter }: TaskListHeaderProps) => {
 
         <ActionButton onClick={onAddTask} className="flex-1 sm:flex-none">
           Add New Task
-          <Plus size={16} />
+          <Plus size={12} />
         </ActionButton>
       </div>
     </div>

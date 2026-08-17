@@ -41,7 +41,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
 
   return (
     <div
-      className={`flex items-center justify-between rounded-lg border border-border bg-card p-4 transition ${
+      className={`flex lg:items-center md:items-baseline items-baseline lg:justify-between lg:flex-row md:flex-col flex-col rounded-lg border border-border bg-card p-4 transition ${
         isDragging ? "opacity-50" : ""
       }`}
     >
@@ -76,27 +76,40 @@ const TaskItem = ({ task }: TaskItemProps) => {
       </div>
 
       {/* RIGHT SIDE */}
-      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+      <div className="flex lg:flex-row md:flex-col sm:flex-col items-center gap-4 text-sm text-muted-foreground ">
         {/* Tag */}
-        <Badge className="bg-[#F1F4FF] text-[#98A6FF]">{task.tag}</Badge>
+        <Badge className="bg-[#F1F4FF] text-[#98A6FF] hidden md:hidden lg:block">
+          {task.tag}
+        </Badge>
 
-        {/* Due date */}
-        <span>{task.dueDate}</span>
+        <div className="flex flex-col">
+          <div className="flex  md:justify-between justify-between lg:flex-row gap-2 w-82 md:w-[600px] lg:w-full  lg:justify-center items-center">
+            {/*Due date + Comments */}
+            <div className="flex items-center gap-3">
+              {/* Due date */}
+              <span>{task.dueDate}</span>
 
-        {/* Comments */}
-        <span className="flex items-center justify-center gap-2">
-          <MessageCircle size={16} />1
-        </span>
+              {/* Comments */}
+              <span className="flex items-center justify-center gap-2">
+                <MessageCircle size={16} />1
+              </span>
+            </div>
 
-        {/* Assignee */}
-        <Avatar>
-          <AvatarImage
-            src="https://github.com/shadcn.png"
-            alt="@shadcn"
-            className="grayscale"
-          />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+            {/* Assignee */}
+            <Avatar className="flex md:justify-end lg:ml-0 justify-end">
+              <AvatarImage
+                src="https://github.com/shadcn.png"
+                alt="@shadcn"
+                className="grayscale"
+              />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </div>
+
+          <Badge className="bg-[#F1F4FF] text-[#98A6FF] block md:block lg:hidden">
+            {task.tag}
+          </Badge>
+        </div>
       </div>
     </div>
   );
