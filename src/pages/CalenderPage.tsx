@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Calendar, dateFnsLocalizer, type Event } from "react-big-calendar";
+import {
+  Calendar,
+  dateFnsLocalizer,
+  type Event,
+  type View,
+} from "react-big-calendar";
 
 import { format, parse, startOfWeek, getDay } from "date-fns";
 
@@ -66,10 +71,9 @@ const initialEvents: CalendarEvent[] = [
 
 const CalendarPage = () => {
   const [events, setEvents] = useState<CalendarEvent[]>(initialEvents);
-
   const [currentDate, setCurrentDate] = useState(new Date(2026, 7, 13));
 
-  const [view, setView] = useState<"month" | "week" | "day">("month");
+  const [view, setView] = useState<View>("month");
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [eventTitle, setEventTitle] = useState("");
@@ -405,7 +409,7 @@ const CalendarPage = () => {
                 date={currentDate}
                 view={view}
                 onNavigate={setCurrentDate}
-                onView={setView}
+                onView={(newView) => setView(newView)}
                 startAccessor="start"
                 endAccessor="end"
                 selectable

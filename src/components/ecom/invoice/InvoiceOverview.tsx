@@ -45,8 +45,10 @@ const InvoiceOverview = () => {
             );
           })}
         </div>
-        <InvoiceTable />
       </Card>
+      <div className="pt-6">
+        <InvoiceTable />
+      </div>
     </div>
   );
 };

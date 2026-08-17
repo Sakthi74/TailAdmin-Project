@@ -1,4 +1,5 @@
-import { Calendar } from "lucide-react";
+import { useRef } from "react";
+import { Calendar, MessageCircle } from "lucide-react";
 import { useDrag } from "react-dnd";
 import { Badge } from "../../ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -26,8 +27,7 @@ const TAG_STYLES: Record<string, string> = {
     "bg-[#FDF2FA] text-[#EC4899] dark:bg-[#EC4899]/15 dark:text-[#F9A8D4]",
   Engineering:
     "bg-[#ECFDF3] text-[#12B76A] dark:bg-[#12B76A]/15 dark:text-[#6EE7B7]",
-  Sales:
-    "bg-[#FFFAEB] text-[#F79009] dark:bg-[#F79009]/15 dark:text-[#FCD34D]",
+  Sales: "bg-[#FFFAEB] text-[#F79009] dark:bg-[#F79009]/15 dark:text-[#FCD34D]",
 };
 
 // Swap these for your real user avatars once you have them per-assignee
@@ -46,6 +46,8 @@ const getInitials = (name: string) =>
     .toUpperCase();
 
 const TaskKanbanCard = ({ task }: TaskKanbanCardProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ITEM_TYPE,
     item: { id: task.id },
@@ -54,9 +56,11 @@ const TaskKanbanCard = ({ task }: TaskKanbanCardProps) => {
     }),
   }));
 
+  drag(ref);
+
   return (
     <div
-      ref={drag}
+      ref={ref}
       className={`cursor-grab space-y-3 rounded-xl border border-border bg-card p-4 shadow-sm transition hover:shadow-md active:cursor-grabbing ${
         isDragging ? "opacity-50" : ""
       }`}
@@ -67,7 +71,7 @@ const TaskKanbanCard = ({ task }: TaskKanbanCardProps) => {
           {task.title}
         </p>
 
-        <Avatar className="h-8 w-8 shrink-0">
+        <Avatar className="h-5 w-5 shrink-0">
           <AvatarImage
             src={ASSIGNEE_AVATARS[task.assignee]}
             alt={task.assignee}
@@ -78,20 +82,20 @@ const TaskKanbanCard = ({ task }: TaskKanbanCardProps) => {
         </Avatar>
       </div>
 
-      {/* DESCRIPTION (only renders when a task has one, like the "Product Update" card in your reference) */}
-      {task.description && (
-        <p className="line-clamp-2 text-sm text-muted-foreground">
-          {task.description}
-        </p>
-      )}
+      {/* DUE DATE + MSG */}
 
-      {/* DUE DATE */}
-      {task.dueDate && (
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Calendar size={14} />
-          <span>{task.dueDate}</span>
+      <div className="flex gap-4 items-center">
+        {task.dueDate && (
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <Calendar size={14} />
+            <span>{task.dueDate}</span>
+          </div>
+        )}
+        <div className="text-gray-400 flex gap-1 items-center">
+          <MessageCircle size={16} />
+          <h1>1</h1>
         </div>
-      )}
+      </div>
 
       {/* TAG */}
       {task.tag && (

@@ -111,27 +111,6 @@ const List = () => {
 
   const completedTasks = tasklist.filter((task) => task.status === "Completed");
 
-  const handleMoveTask = (draggedId: number, targetId: number) => {
-    setTaskList((prev) => {
-      const draggedIndex = prev.findIndex((task) => task.id === draggedId);
-      const targetIndex = prev.findIndex((task) => task.id === targetId);
-
-      if (draggedIndex === -1 || targetIndex === -1) {
-        return prev;
-      }
-
-      const updated = [...prev];
-      const targetStatus = updated[targetIndex].status;
-      const draggedTask = { ...updated[draggedIndex], status: targetStatus };
-
-      updated.splice(draggedIndex, 1);
-      const newTargetIndex = updated.findIndex((task) => task.id === targetId);
-      updated.splice(newTargetIndex, 0, draggedTask);
-
-      localStorage.setItem("tasklist", JSON.stringify(updated));
-      return updated;
-    });
-  };
   const handleDropOnSection = (
     draggedId: number,
     newStatus: TaskFormData["status"],
@@ -170,7 +149,7 @@ const List = () => {
               </DialogHeader>
 
               <div className="space-y-6 py-4">
-                {/* TASK TITLE */}
+                {/* task title */}
                 <div className="space-y-2">
                   <label className={labelClass}>Task Title</label>
                   <input
@@ -188,7 +167,7 @@ const List = () => {
                   />
                 </div>
 
-                {/* DUE DATE + STATUS */}
+                {/* due data + status */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className={labelClass}>Due Date</label>

@@ -149,7 +149,7 @@ const Navbar = ({ setSidebarOpen, sidebarOpen }: NavbarProps) => {
               aria-label="Toggle theme"
             >
               {mounted && theme === "dark" ? (
-                <Sun size={18} />
+                <Sun size={20} />
               ) : (
                 <Moon size={18} />
               )}

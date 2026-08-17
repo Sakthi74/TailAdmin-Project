@@ -20,12 +20,22 @@ const TaskListHeader = ({ onAddTask, onFilter }: TaskListHeaderProps) => {
   const [activeTab, setActiveTab] = useState<TaskTab>("completed");
 
   return (
-    <div className="flex flex-col md:flex-col sm:flex-row sm:items-center md:items-start sm:justify-between gap-4 rounded-2xl border border-border bg-card p-4">
-      <div className="flex items-center gap-1 bg-[#F2F4F7] dark:bg-[#2A3040] rounded-lg p-1 w-fit overflow-x-auto">
+    <div className="flex lg:flex-row md:flex-col flex-col sm:items-center md:items-start justify-between gap-4 rounded-2xl border border-border bg-card p-4">
+      <div
+        className="
+    grid sm:grid-cols-2 sm:grid-rows-2
+    md:flex md:flex-row
+    items-center gap-1
+    bg-[#F2F4F7] dark:bg-[#2A3040]
+    rounded-lg p-1
+    w-fit
+    overflow-x-auto
+  "
+      >
+        {" "}
         {TABS.map((tab) => {
           const isActive = activeTab === tab.value;
           return (
-            
             <button
               key={tab.value}
               type="button"

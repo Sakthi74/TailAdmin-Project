@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
-  BookUser,
   ChevronDown,
   ChevronUp,
+  ShoppingCart,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.svg";
@@ -21,7 +21,7 @@ const Sidebar = ({ sidebarOpen }: any) => {
   const Ecom = [
     { id: "products", label: "Products", path: "/products" },
     { id: "billing", label: "Billing", path: "/billing" },
-    { id: "invoice", label: "Invoies", path: "/invoices" },
+    { id: "invoice", label: "Invoices", path: "/invoices" },
   ];
 
   const Task = [
@@ -71,19 +71,19 @@ const Sidebar = ({ sidebarOpen }: any) => {
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      {/* LOGO */}
+      {/* Logo */}
       <div className="h-12 shrink-0 items-center py-7 px-4 lg:block md:hidden hidden">
         <img src={logo} alt="TailAdmin" className="h-8 w-auto object-contain" />
       </div>
 
-      {/* MENU TITLE */}
+      {/* Menu title */}
       <div className="px-5 pb-3 pt-7">
         <span className="text-[11px] font-medium uppercase text-[#98A2B3] dark:text-foreground">
           Menu
         </span>
       </div>
 
-      {/* DASHBOARD */}
+      {/* Dashboard */}
       <details
         open={openSection === "dashboard"}
         onToggle={(e) => handleToggle(e, "dashboard")}
@@ -114,7 +114,7 @@ const Sidebar = ({ sidebarOpen }: any) => {
         </div>
       </details>
 
-      {/* CONTACT */}
+      {/* Contact */}
       <details
         open={openSection === "contact"}
         onToggle={(e) => handleToggle(e, "contact")}
@@ -122,7 +122,7 @@ const Sidebar = ({ sidebarOpen }: any) => {
       >
         <summary className={sectionHeaderClass("contact")}>
           <div className="flex items-center gap-3">
-            <BookUser size={20} strokeWidth={1.8} />
+            <ShoppingCart size={20} strokeWidth={1.8} />
             <span>E-Commerce</span>
           </div>
           {openSection === "contact" ? (
@@ -144,7 +144,7 @@ const Sidebar = ({ sidebarOpen }: any) => {
           ))}
         </div>
       </details>
-      {/* CALENDAR */}
+      {/* Calender */}
       <div
         className={`group flex h-11 w-64 ml-2 cursor-pointer items-center rounded-lg px-6 text-sm font-medium transition-colors ${
           location.pathname === "/calender"

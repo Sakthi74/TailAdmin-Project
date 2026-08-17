@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useDrag } from "react-dnd";
 import { MessageCircle } from "lucide-react";
-
 import { Badge } from "../../ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 
@@ -24,6 +23,8 @@ interface TaskItemProps {
 const TaskItem = ({ task }: TaskItemProps) => {
   const [checked, setChecked] = useState(false);
 
+  const ref = useRef<HTMLSpanElement>(null);
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ITEM_TYPE,
 
@@ -36,6 +37,8 @@ const TaskItem = ({ task }: TaskItemProps) => {
     }),
   }));
 
+  drag(ref);
+
   return (
     <div
       className={`flex items-center justify-between rounded-lg border border-border bg-card p-4 transition ${
@@ -46,7 +49,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
       <div className="flex items-center gap-4">
         {/* Drag handle */}
         <span
-          ref={drag}
+          ref={ref}
           className="cursor-grab text-muted-foreground active:cursor-grabbing"
         >
           ☰
